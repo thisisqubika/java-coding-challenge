@@ -1,0 +1,14 @@
+cars:
+  ford:
+    ingester:
+      runCron: '0 * * ? * *' #each minute
+
+spring:
+  datasource:
+    url: jdbc:h2:mem:carsdb
+    driverClassName: org.h2.Driver
+    username: sa
+    password:
+  jpa:
+    database-platform: 'org.hibernate.dialect.H2Dialect'
+  h2.console.enabled: true

@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<CATALOGUE>
+    <MODEL name="Aspire" from="1994" to="1997" type="subcompact">
+        <ENGINE power="1400" type="GAS"/>
+        <WHEELS size="R15" type="STEEL"/>
+        <SUBMODELS>
+            <MODEL name="Aspire 2" line="hatchback">
+                <ENGINE power="1600" type="GAS"/>
+                <WHEELS size="R15" type="STEEL"/>
+            </MODEL>
+            <MODEL name="Aspire 4" line="hatchback">
+                <ENGINE power="1600" type="GAS"/>
+                <WHEELS size="R15" type="STEEL"/>
+            </MODEL>
+        </SUBMODELS>
+    </MODEL>
+    <MODEL name="Bronco 1st gen" from="1966" to="1977" type="compact">
+        <ENGINE power="900" type="GAS"/>
+        <WHEELS size="R15" type="STEEL"/>
+        <SUBMODELS>
+            <MODEL name="Bronco 1st gen wagon" line="sport-utility">
+                <ENGINE power="1000" type="GAS"/>
+                <WHEELS size="R15" type="STEEL"/>
+            </MODEL>
+        </SUBMODELS>
+    </MODEL>
+    <MODEL name="Transit Connect 2nd generation" from="2014" type="compact minivan">
+        <ENGINE power="2000" type="GAS"/>
+        <WHEELS size="R15" type="ALLOY"/>
+        <SUBMODELS>
+            <MODEL name="Transit Connect 2gen Wagon lwb" from="2014" to="2016" line="wagon">
+                <ENGINE power="2100" type="GAS"/>
+                <WHEELS size="R16" type="ALLOY"/>
+            </MODEL>
+            <MODEL name="Transit Connect 2gen Wagon swb " from="2014" to="2016" line="wagon">
+                <ENGINE power="2100" type="GAS"/>
+                <WHEELS size="R16" type="ALLOY"/>
+            </MODEL>
+        </SUBMODELS>
+    </MODEL>
+    <MODEL name="Ford Fiesta" from="2014" type="compact">
+        <ENGINE power="1600" type="GAS"/>
+        <WHEELS size="R15" type="ALLOY"/>
+        <SUBMODELS>
+            <MODEL name="Ford Fiesta 2017" from="2017" line="hatchback">
+                <ENGINE power="1600" type="GAS"/>
+                <WHEELS size="R15" type="ALLOY"/>
+            </MODEL>
+            <MODEL name="Ford Fiesta ST" from="2018" line="hatchback-sport">
+                <ENGINE power="1800" type="GAS"/>
+                <WHEELS size="R16" type="CHROME"/>
+            </MODEL>
+            <MODEL name="Ford Fiesta Active" from="2018" line="hatchback">
+                <ENGINE power="1600" type="GAS"/>
+                <WHEELS size="R15" type="ALLOY"/>
+            </MODEL>
+        </SUBMODELS>
+    </MODEL>
+</CATALOGUE>
