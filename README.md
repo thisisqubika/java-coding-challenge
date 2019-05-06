@@ -13,7 +13,7 @@ In order to be practical, we ask you to make one commit per challenge part and u
 > After cloning the repository, you should be ready to start up the cars application at port `8080` with the command `mvn springboot:run`
 
 ### The application technology
-Here is the list of technologies within the application structure: 
+Here is the list of the technologies we are providing in the application structure: 
  - Java 8
  - Spring boot 2.1.4
  - Maven 3.3.9 or above
@@ -21,7 +21,7 @@ Here is the list of technologies within the application structure:
  - H2 embedded database
  - Spring Data JPA
 
-> Be free to add any necessary dependency you need to achieve the challenge but please keep the above technologies and versions in the project as they already are.
+> Be free to add any necessary dependency you need to achieve the challenge but please, keep the above technologies and versions in the project as they already are.
 
 
 ## Challenge introduction
