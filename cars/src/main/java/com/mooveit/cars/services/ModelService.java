@@ -1,9 +1,11 @@
 package com.mooveit.cars.services;
 
+import com.mooveit.cars.acl.xmlmodel.Catalogue;
 import com.mooveit.cars.domain.Model;
 import com.mooveit.cars.repositories.ModelRepository;
 import com.mooveit.cars.services.interfaces.IModelService;
-import com.mooveit.cars.acl.xmlmodel.Catalogue;
+import com.mooveit.cars.utils.Converter;
+import io.vavr.control.Option;
 import io.vavr.control.Try;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -45,5 +47,17 @@ public class ModelService implements IModelService {
                         )
         ).collect(Collectors.toList()))
                 .map(models -> true);
+    }
+
+    @Override
+    public Try<List<Model>> findByName(String name) {
+        return Try.of(() -> modelRepository.findBy(name));
+    }
+
+    @Override
+    public Try<Option<Model>> findById(String id) {
+        return Converter.string2Long(id).map(longId ->
+                Option.ofOptional(modelRepository.findById(longId))
+        );
     }
 }

@@ -1,4 +1,4 @@
-package com.mooveit.cars.tasks;
+package com.mooveit.cars.listener;
 
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import com.mooveit.cars.services.interfaces.IModelService;
@@ -18,9 +18,9 @@ import org.springframework.stereotype.Component;
 import java.nio.file.Files;
 
 @Component
-public class FordIngesterTask {
+public class FordIngesterListener {
 
-    private static final Logger logger = LoggerFactory.getLogger(FordIngesterTask.class);
+    private static final Logger logger = LoggerFactory.getLogger(FordIngesterListener.class);
 
     @Autowired
     private IModelService modelService;
@@ -32,8 +32,8 @@ public class FordIngesterTask {
     private Resource fileResource;
 
     @EventListener(ApplicationReadyEvent.class)
-    public void onApplicationEvent() {
-        parseFile().flatMap(this::createSchema)
+    public Boolean onApplicationEvent() {
+        return parseFile().flatMap(this::createSchema)
                 .andThen(() -> logger.info("Schema created!!!"))
                 .getOrElseGet(error -> {
                     error.printStackTrace();

@@ -36,4 +36,16 @@ public class Engine {
     public String getType() {
         return type;
     }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setPower(Integer power) {
+        this.power = power;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 }
