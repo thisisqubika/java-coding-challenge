@@ -17,4 +17,8 @@ public class WheelService {
         return wheelRepository.save(wheel);
     }
 
+    public Wheel getWheelsById(Long id){
+        return wheelRepository.findById(id).get();
+    }
+
 }

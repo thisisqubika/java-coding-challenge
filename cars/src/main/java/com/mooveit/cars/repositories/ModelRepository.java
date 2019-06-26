@@ -9,4 +9,5 @@ import java.util.List;
 @Repository
 public interface ModelRepository extends CrudRepository<Model,Long> {
 
+    List<Model> findByName(String name);
 }

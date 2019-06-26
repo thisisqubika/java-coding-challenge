@@ -18,6 +18,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.ArgumentMatchers.any;
@@ -39,6 +40,8 @@ public class ModelServiceTest {
         List<Model> modelList = new ArrayList<>();
         modelList.add(model);
         given(modelRepository.save(any())).willReturn(model);
+        given(modelRepository.findById(any())).willReturn(Optional.of(model));
+        given(modelRepository.findByName(any())).willReturn(modelList);
     }
 
     @Test
@@ -48,5 +51,19 @@ public class ModelServiceTest {
         assertThat(modelService.createModel(modelData,new Wheel(),new Engine()).getFrom()).isEqualTo(modelData.getFrom());
         assertThat(modelService.createModel(modelData,new Wheel(),new Engine()).getTo()).isEqualTo(modelData.getTo());
         assertThat(modelService.createModel(modelData,new Wheel(),new Engine()).getType()).isEqualTo(modelData.getType());
+    }
+
+    @Test
+    public void getModelByNameTest(){
+        ModelData modelData = new ModelData("Mustang", "1990","2000","Cabriolet","Sport", new WheelData(), new EngineData(), new SubModelContainer());
+        assertThat(modelService.getModelByName("Mustang").getName()).isEqualTo(modelData.getName());
+        assertThat(modelService.getModelByName("Mustang").getType()).isEqualTo(modelData.getType());
+    }
+
+    @Test
+    public void getModelByIdTest(){
+        ModelData modelData = new ModelData("Mustang", "1990","2000","Cabriolet","Sport", new WheelData(), new EngineData(), new SubModelContainer());
+        assertThat(modelService.getModelById(1).getName()).isEqualTo(modelData.getName());
+        assertThat(modelService.getModelById(2).getType()).isEqualTo(modelData.getType());
     }
 }

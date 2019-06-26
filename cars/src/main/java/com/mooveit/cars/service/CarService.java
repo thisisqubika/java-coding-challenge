@@ -44,4 +44,53 @@ public class CarService {
         }
     }
 
+
+    public Wheel getCarModelWheels(String name){
+        Model model = modelService.getModelByName(name);
+        return wheelService.getWheelsById(model.getWheel().getId());
+    }
+
+    public Wheel getCarModelWheels(Integer id){
+        Model model = modelService.getModelById(id);
+        return wheelService.getWheelsById(model.getWheel().getId());
+    }
+
+    public Engine getCarModelEngine(String name){
+        Model model = modelService.getModelByName(name);
+        return engineService.getEngineById(model.getEngine().getId());
+    }
+
+    public Engine getCarModelEngine(Integer id){
+        Model model = modelService.getModelById(id);
+        return engineService.getEngineById(model.getEngine().getId());
+    }
+
+    public Model getCarModel(String name) {
+        return modelService.getModelByName(name);
+    }
+
+    public Model getCarModel(Integer id) {
+        return modelService.getModelById(id);
+    }
+
+    public Model getCarData(String name) {
+        Wheel wheel = getCarModelWheels(name);
+        Engine engine = getCarModelEngine(name);
+        Model model = getCarModel(name);
+        model.setWheel(wheel);
+        model.setEngine(engine);
+
+        return model;
+    }
+
+    public Model getCarData(Integer id) {
+        Wheel wheel = getCarModelWheels(id);
+        Engine engine = getCarModelEngine(id);
+        Model model = getCarModel(id);
+        model.setWheel(wheel);
+        model.setEngine(engine);
+
+        return model;
+    }
+
 }

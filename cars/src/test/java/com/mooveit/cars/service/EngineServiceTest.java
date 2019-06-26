@@ -40,4 +40,11 @@ public class EngineServiceTest {
         assertThat(engineService.createEngine(engineData).getPower()).isEqualTo(engineData.getPower());
         assertThat(engineService.createEngine(engineData).getType()).isEqualTo(engineData.getType());
     }
+
+    @Test
+    public void getEngineByIdTest(){
+        EngineData engineData = new EngineData("1000", "GAS");
+        assertThat(engineService.getEngineById(any()).getPower()).isEqualTo(engineData.getPower());
+        assertThat(engineService.getEngineById(any()).getType()).isEqualTo(engineData.getType());
+    }
 }

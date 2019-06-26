@@ -16,4 +16,8 @@ public class EngineService {
         Engine engine = new Engine(engineData.getPower(), engineData.getType());
         return engineRepository.save(engine);
     }
+
+    public Engine getEngineById(Long id) {
+        return engineRepository.findById(id).get();
+    }
 }

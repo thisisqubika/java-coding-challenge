@@ -10,4 +10,5 @@ import java.util.List;
 @Repository
 public interface SubModelRepository extends CrudRepository<SubModel,Long> {
 
+    List<SubModel> findByModel(Model model);
 }
