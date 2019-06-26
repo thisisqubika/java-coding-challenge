@@ -33,3 +33,13 @@ When user searches by model I would return it back as an byte array.
 
 
 ## E - Improvements
+
+ - I could avoid persisting the same engine and wheels data, modifying the relation:
+   Car ---- many to one ---> Wheel
+   Car ---- many to oen ---> Engine
+ 
+ - Add validations, as user input could be in capital letters.
+ - Move processed files from directory so they wont be processed again.
+ - Create a new table with logs of updated files, with file name and date.
+ - Add more test cases for services and controllers.
+
