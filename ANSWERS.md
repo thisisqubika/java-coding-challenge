@@ -82,20 +82,26 @@ A `MergeBrandsIngestStrategy` was implemented to follow this definition:
 
 ## C - Expose data with a RESTful API
 
-I will take advantage of the `Spring Data Web Support` to expose all the Repositories implemented to accomplish the next requirements:
+For this project, I've enabled _Spring Data Web_ allowing to publish Repositories automatically with **HATEOS** support.
 
+I will take advantage of this to expose the repositories of `Brand`s and `Specification`s 
+which allow accomplishing the next two requirements:
+
+### Basic Endpoints
 * Get a car specification by id
-```CURL```
-http://localhost:8080/specifications/{id}
+```curl GET http://localhost:8080/specifications/{id}```
 
-* Get all the car specifications by brand
-```CURL```
-http://localhost:8080/specifications/search/findByBrandName?brand=Ford
+* Get all the car specifications by brand  
+```curl GET http://localhost:8080/specifications/search/findByBrandName?brand=Ford```
+
+### Spring Data Web Endpoints
+
+_Spring Data Web_ also will enable some endpoints that allow accessing `Brand`s and `Specification`s as for example:  
+
+* Find `Specification`'s by name - `curl GET http://localhost:8080/specifications/search/findByName?name=Ford%20Fiesta`
+* Get all `Specification`'s by `Brand`'s id - `http://localhost:8080/brands/1/specifications`
 
 ## D - Adding images
 
 ## E - Improvements
 
-* Spring Profiles (`dev` and `prod` required)
-* Security
-* 
