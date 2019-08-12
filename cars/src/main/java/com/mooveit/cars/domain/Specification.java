@@ -2,7 +2,6 @@ package com.mooveit.cars.domain;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Stream;
 
 import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorValue;
@@ -57,12 +56,17 @@ public class Specification extends AbstractSpec {
 		return this.modifications.get(index);
 	}
 
-	public Stream<Modification> getModifications() {
-		return this.modifications.stream();
-	}
-
 	public boolean hasModifications() {
 		return !this.modifications.isEmpty();
+	}
+	
+
+	public List<Modification> getModifications() {
+		return modifications;
+	}
+
+	public void setModifications(List<Modification> modifications) {
+		this.modifications = modifications;
 	}
 
 	public String getType() {
@@ -81,8 +85,5 @@ public class Specification extends AbstractSpec {
 		this.brand = brand;
 	}
 
-	protected void setModifications(List<Modification> modifications) {
-		this.modifications = modifications;
-	}
 
 }
