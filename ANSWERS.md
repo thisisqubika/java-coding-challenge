@@ -65,5 +65,11 @@ All these resources return the data in a json format, for example a GET request 
 If a request is made with a model id or brand that does not exists, an empty json is returned.
 
 ## D - Adding images
+There are differents ways to add images to the provided data.
+One way would be to upload image files to a repository and store a link to the image in the database. By doing this, the link could be retrieved from the database and added to the json response when calling one of the resources from step C. 
+But, as in this solution we have an in memory database, probably it would be better to store images in the database after doing a base64 encoding. Base64 images are larger than storing the file, but as the database is recreated when the application runs, we only need to encode images to base64 again and store them in the database. With the other approach, when the database is removed, we should remove also the images from the repository to maintain consistency.
+One thing against returning a base64 image in the json response is that it requires to decode the string to obtain the image. By returning a link to the image is easier to view or download it.
+
+To upload the images, we can read them from a folder and have some sort of criteria to relate them to a car model (for example, the image name). Other approach could be to create a Resource to load car models, to wich we could send an xml file with the model information and attach images that can be processed and store in the database.
 
 ## E - Improvements
