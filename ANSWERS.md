@@ -17,6 +17,52 @@ The main reason for this change was because car models in ford-example.xml file 
 As for the database persistance, I stored the brand as a column in the model table. I did this change because the brand was not part of the data contained in ford-example.xml file.
 
 ## C - Expose data with a RESTful API
+The class CarsController contains the resources exposed for this solution.
+I created 3 methods for this solution but many more could be added as an improvement.
+- Method getCars() to retrieve all cars models. GET request to http://localhost:8080/cars
+- Method getCar(id) to retrieve a car model by id. GET request to http://localhost:8080/cars/1
+- Method getCarByBrand(brand) to retireve all car models for the requested brand. GET request to http://localhost:8080/cars/byBrand/Ford
+
+All these resources return the data in a json format, for example a GET request to http://localhost:8080/cars/3 returns the following structure:
+{
+    "id": 3,
+    "name": "Bronco 1st gen",
+    "brand": "Ford",
+    "type": "compact",
+    "submodels": {
+        "submodel": [
+            {
+                "id": 4,
+                "name": "Bronco 1st gen",
+                "line": "sport-utility",
+                "engine": {
+                    "id": 7,
+                    "power": 1000,
+                    "type": "GAS"
+                },
+                "wheels": {
+                    "id": 7,
+                    "size": "R15",
+                    "type": "STEEL"
+                }
+            }
+        ]
+    },
+    "engine": {
+        "id": 6,
+        "power": 900,
+        "type": "GAS"
+    },
+    "wheels": {
+        "id": 6,
+        "size": "R15",
+        "type": "STEEL"
+    },
+    "from": 1966,
+    "to": 1977
+}
+
+If a request is made with a model id or brand that does not exists, an empty json is returned.
 
 ## D - Adding images
 
