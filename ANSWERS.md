@@ -73,3 +73,14 @@ One thing against returning a base64 image in the json response is that it requi
 To upload the images, we can read them from a folder and have some sort of criteria to relate them to a car model (for example, the image name). Other approach could be to create a Resource to load car models, to wich we could send an xml file with the model information and attach images that can be processed and store in the database.
 
 ## E - Improvements
+As mentioned before, there are some improvements that could be done to this solution.
+
+- Regarding the ingest of data, it will be better to store catalogues in a FTP server from where xml files could be read. By doing this, the cron job time would need to be greater to avoid collisions when accesing and downloading files from the server. Other improvement for this solution is to read all xml files from the folder where they might be contained in the FTP server or, in this case, the Catalogues folder. This way it will allow to load car models from different brands assuming the files naming convention {brand}.xml continues. If the brand is added to the xml structure, all car models could be stored in one xml catalogue file or in more than one.
+
+- Add more resources to get car models by other criterias or get cars submodels, for example.
+
+- Add exception handling to the exposed resources.
+
+- For this solution, before inserting a new car model into the database I check that name, brand, type, from and to values are not the same than a car model already stored. An improvement for this will be to validate also wheels, engine and submodels attributes. Having this validation and regarding business decitions we could decide to insert a complete new model, update the model or some of their attributes if is already inserted but have some difference or avoid adding the car model if is already inserted.
+
+- Add unit tests.
