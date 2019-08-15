@@ -74,7 +74,7 @@ A new `BrandBuilder` instance could be added into the `BuildersConfigurations` a
 ingested using the same `IngestStrategy` for all of them.
 
 ### Ingest Strategy
-`IngestStrategy` implement the sstrategy to ingest new or existant Brands and Specifications.  
+`IngestStrategy` implement the strategy to ingest new or existant `Brand`s and `Specificatio`s.  
 
 A `MergeBrandsIngestStrategy` was implemented to follow this definition:  
 * If the model's `Specification` was not previously ingested, this will be created based on the data source  
@@ -103,5 +103,40 @@ _Spring Data Web_ also will enable some endpoints that allow accessing `Brand`s 
 
 ## D - Adding images
 
+### Domain Model
+In order to support attach images to each car's `Specification` I've added to the domain model the `Image` entity
+which contains the `data` (bytes) of the images and information extra information as `fileName` and `fileType`.
+
+Each `Specification` has a unique `Image` associated.
+
+### Service and Repository
+
+A `ImageService` was implemented in order to manage storage access to the image entity associated to each 
+`Specification`, and an `AbstractSpecRepository` was implemented to allows associating images to both car's 
+`Specification`s and `Modification`s.
+
+### Image's endpoints
+
+The RESTFull API of the `Specification` entity was modified adding access to the `Image`s. This two endpoint are:
+
+* `curl -X POST http://localhost:8080/specifications/{SpecificationId}/image -H 'content-type: multipart/form-data' 
+-F file=@{local-path}`
+
+* `curl -X GET http://localhost:8080/specifications/{SpecificationId}/image` 
+
 ## E - Improvements
 
+Here a list of TODOs for improving the solution in order to deploy it in a production environment:
+
+Functional improvements
+* Improve `IngestionStrategy` in order to not duplicate `Engine`s and `Wheel`s
+* Add some sample `BrandBuilder` to generate `Brand`s from different data sources, as e.g. RestAPIs.
+* Including _Integration Test_ for the main endpoints
+
+Non-functional improvements
+* Add _Spring Boot Actuator_ to add production-ready features **[Done]**
+  - Implement custom _HealthIndicator_ for monitor `Ingestion`s **[Todo]**
+* Add Spring profiles for _development (dev)_ and _Production (prod)_ environment **[Done]**
+* Add _Spring Security_ to add authentication and authorization to the service **[Todo]**
+* Add _Swagger_ documentation **[Todo]**
+* _Docker_ support  **[Todo]**

@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -47,6 +48,9 @@ public abstract class AbstractSpec extends BaseEntity {
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Wheel wheel;
 
+	@OneToOne(cascade = CascadeType.ALL)
+	private Image image;
+	
 	protected AbstractSpec() {
 	}
 
@@ -98,5 +102,15 @@ public abstract class AbstractSpec extends BaseEntity {
 	public void setWheel(Wheel wheel) {
 		this.wheel = wheel;
 	}
+
+	public Image getImage() {
+		return image;
+	}
+
+	public void setImage(Image image) {
+		this.image = image;
+	}
+	
+	
 	
 }
