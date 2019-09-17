@@ -10,6 +10,8 @@ In the entity `Car` there are some attributes that can be null and I marked them
 - productionYearTo: when null indicates that a car is still in production
 - parentModel: when null indicates that a car is the parent model and it can have sub-models
 
+Note that in the UML diagram the `+` indicates a filed that has setter and getter public. I used `#` for `id` that has only getter public but setter protected.
+
 ## B - Ingest the data
 
 ## C - Expose data with a RESTful API
