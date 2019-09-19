@@ -13,6 +13,11 @@ In the entity `Car` there are some attributes that can be null and I marked them
 Note that in the UML diagram the `+` indicates a filed that has setter and getter public. I used `#` for `id` that has only getter public but setter protected.
 
 ## B - Ingest the data
+The `FordIngesterTask` expects to find the files to ingest in a folder that is configurable with the property `cars.ford.ingester.root-path`.
+If the folder doesn't exist, the application fails to start-up and an error will be logged describing that a folder must be created.<br>
+
+When for any reason an error occurs during the ingestion, the file will be marked as failed to ingest, appending to the file name the extension `.failed`.
+When the ingestion of a file is completed successfully, we append to the file name `.ingested` extension.
 
 ## C - Expose data with a RESTful API
 

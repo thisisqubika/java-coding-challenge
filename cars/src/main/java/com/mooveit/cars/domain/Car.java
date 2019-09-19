@@ -13,7 +13,7 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
 @ToString(
     callSuper = true,
     exclude = {"parentModel", "subModels"})
@@ -44,15 +44,16 @@ public class Car extends AbstractPersistable<Long> {
 
   @Builder(toBuilder = true)
   public Car(
-      String brand,
-      String modelName,
-      String type,
-      @Nullable String line,
-      Year productionYearFrom,
-      @Nullable Year productionYearTo,
-      Engine engine,
-      Wheels wheels,
-      @Nullable Car parentModel) {
+          String brand,
+          String modelName,
+          String type,
+          @Nullable String line,
+          Year productionYearFrom,
+          @Nullable Year productionYearTo,
+          Engine engine,
+          Wheels wheels,
+          @Nullable Car parentModel,
+          List<Car> subModels) {
     this.brand = brand;
     this.modelName = modelName;
     this.type = type;
@@ -62,6 +63,7 @@ public class Car extends AbstractPersistable<Long> {
     this.engine = engine;
     this.wheels = wheels;
     this.parentModel = parentModel;
+      this.subModels = subModels == null ? new ArrayList<>() : subModels;
   }
 
   /**

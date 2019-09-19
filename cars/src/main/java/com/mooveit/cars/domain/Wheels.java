@@ -9,7 +9,7 @@ import javax.persistence.Entity;
 @Entity
 @Getter
 @Setter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
 @ToString(callSuper = true)
 public class Wheels extends AbstractPersistable<Long> {
 

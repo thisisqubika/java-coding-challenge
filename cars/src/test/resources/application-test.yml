@@ -1,0 +1,4 @@
+cars:
+  ford:
+    ingester:
+      root-path: '${user.dir}/target'
