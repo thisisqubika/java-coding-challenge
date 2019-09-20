@@ -5,6 +5,7 @@ import com.mooveit.cars.ingestion.ford.xml.FordNotParsedException;
 import com.mooveit.cars.ingestion.ford.xml.mappers.CarMapper;
 import com.mooveit.cars.ingestion.ford.xml.model.FordCatalogue;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,31 +23,23 @@ import java.nio.file.Paths;
 
 @Slf4j
 @Service
+@RequiredArgsConstructor(onConstructor_ = @Autowired)
 public class FordIngesterTask {
 
   public static final String INGESTED_FILE_EXTENSION = ".ingested";
 
   private static final String FAILED_TO_INGEST_FILE_EXTENSION = ".failed";
   private static final String FORD_INGESTER_DEFAULT_ROOT_PATH = "ford/";
+
   private final FordCatalogueXmlParser fordCatalogueXmlParser;
   private final CarMapper carMapper;
   private final MappedFordPersister mappedFordPersister;
-  @Setter(onMethod_ = {@Value("${cars.ford.ingester.root-path:ford/}")})
+
+  @Setter(onMethod_ = @Value("${cars.ford.ingester.root-path:ford/}"))
   @Getter
-  private String fordIngesterBasePathString;
+  private String fordIngesterBasePathString = FORD_INGESTER_DEFAULT_ROOT_PATH;
   @Getter
   private Path fordIngesterBasePath;
-
-  @Autowired
-  public FordIngesterTask(
-          FordCatalogueXmlParser fordCatalogueXmlParser,
-          CarMapper carMapper,
-          MappedFordPersister mappedFordPersister) {
-    this.fordIngesterBasePathString = FORD_INGESTER_DEFAULT_ROOT_PATH;
-    this.fordCatalogueXmlParser = fordCatalogueXmlParser;
-    this.carMapper = carMapper;
-    this.mappedFordPersister = mappedFordPersister;
-  }
 
   @PostConstruct
   public void init() {

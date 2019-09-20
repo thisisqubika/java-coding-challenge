@@ -6,27 +6,19 @@ import com.mooveit.cars.domain.Wheels;
 import com.mooveit.cars.repositories.CarRepository;
 import com.mooveit.cars.repositories.EngineRepository;
 import com.mooveit.cars.repositories.WheelsRepository;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Slf4j
 @Service
-public class MappedFordPersister {
+@RequiredArgsConstructor(onConstructor_ = @Autowired)
+class MappedFordPersister {
 
     private final EngineRepository engineRepository;
     private final WheelsRepository wheelsRepository;
     private final CarRepository carRepository;
-
-    @Autowired
-    public MappedFordPersister(
-            EngineRepository engineRepository,
-            WheelsRepository wheelsRepository,
-            CarRepository carRepository) {
-        this.engineRepository = engineRepository;
-        this.wheelsRepository = wheelsRepository;
-        this.carRepository = carRepository;
-    }
 
     void persist(Car mappedFordCar) {
         Car carToPersist = mappedFordCar.toBuilder().build();

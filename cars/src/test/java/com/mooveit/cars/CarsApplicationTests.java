@@ -32,9 +32,10 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.Year;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 import static com.mooveit.cars.ingestion.ford.tasks.FordIngesterTask.INGESTED_FILE_EXTENSION;
 import static org.junit.Assert.*;
@@ -89,6 +90,7 @@ public class CarsApplicationTests {
                         .productionYearFrom(Year.of(2010))
                         .productionYearTo(Year.now())
                         .type("compact")
+                        .subModels(new ArrayList<>())
                         .build();
         fordFiesta = carRepository.save(fordFiesta);
 
@@ -103,6 +105,7 @@ public class CarsApplicationTests {
                         .productionYearTo(Year.now())
                         .type("compact")
                         .line("hatchback")
+                        .subModels(new ArrayList<>())
                         .build();
         // Adding sub-model from the parent
         fordFiesta.addSubModel(fordFiesta2017);
@@ -121,6 +124,7 @@ public class CarsApplicationTests {
                         .type("compact")
                         .line("hatchback-sport")
                         .parentModel(fordFiesta)
+                        .subModels(new ArrayList<>())
                         .build();
         fordFiesta.addSubModel(fordFiestaST);
         fordFiestaST = carRepository.save(fordFiestaST);
@@ -134,7 +138,7 @@ public class CarsApplicationTests {
         assertTrue(foundCar.isPresent());
         assertEquals(fordFiesta, foundCar.get());
         // testing relationship parent model with sub-models
-        Set<Car> subModelsFound = carRepository.findByParentModelId(fordFiesta.getId());
+        List<Car> subModelsFound = carRepository.findByParentModelId(fordFiesta.getId());
         assertEquals(2, subModelsFound.size());
         assertTrue(subModelsFound.contains(fordFiesta2017));
         assertTrue(subModelsFound.contains(fordFiestaST));

@@ -9,18 +9,14 @@ import javax.persistence.Entity;
 @Entity
 @Getter
 @Setter
+@AllArgsConstructor
 @NoArgsConstructor
+@Builder(toBuilder = true)
 @ToString(callSuper = true)
 public class Engine extends AbstractPersistable<Long> {
 
   private int power;
   private Type type;
-
-  @Builder(toBuilder = true)
-  public Engine(int power, Type type) {
-    this.power = power;
-    this.type = type;
-  }
 
   public enum Type {
     GAS

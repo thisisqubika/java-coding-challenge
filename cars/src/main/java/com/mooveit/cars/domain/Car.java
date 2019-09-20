@@ -13,7 +13,9 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
+@AllArgsConstructor
 @NoArgsConstructor
+@Builder(toBuilder = true)
 @ToString(
     callSuper = true,
     exclude = {"parentModel", "subModels"})
@@ -23,7 +25,8 @@ public class Car extends AbstractPersistable<Long> {
   private String modelName;
   private String type;
   private @Nullable String line;
-  private Year productionYearFrom;
+  private @Nullable
+  Year productionYearFrom;
   /** When null indicates that a car is still in production */
   private @Nullable Year productionYearTo;
 
@@ -41,30 +44,6 @@ public class Car extends AbstractPersistable<Long> {
 
   @OneToMany(mappedBy = "parentModel", cascade = CascadeType.ALL, orphanRemoval = true)
   private List<Car> subModels = new ArrayList<>();
-
-  @Builder(toBuilder = true)
-  public Car(
-          String brand,
-          String modelName,
-          String type,
-          @Nullable String line,
-          Year productionYearFrom,
-          @Nullable Year productionYearTo,
-          Engine engine,
-          Wheels wheels,
-          @Nullable Car parentModel,
-          List<Car> subModels) {
-    this.brand = brand;
-    this.modelName = modelName;
-    this.type = type;
-    this.line = line;
-    this.productionYearFrom = productionYearFrom;
-    this.productionYearTo = productionYearTo;
-    this.engine = engine;
-    this.wheels = wheels;
-    this.parentModel = parentModel;
-      this.subModels = subModels == null ? new ArrayList<>() : subModels;
-  }
 
   /**
    * Adds the subModel from the subModels list keeping the relationship with parent consistent. Call

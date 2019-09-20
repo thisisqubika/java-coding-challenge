@@ -20,6 +20,17 @@ When for any reason an error occurs during the ingestion, the file will be marke
 When the ingestion of a file is completed successfully, we append to the file name `.ingested` extension.
 
 ## C - Expose data with a RESTful API
+The two REST endpoints exposed are:
+
+- Get a car specification by id: method: `GET`, URL: `/cars/<id>` e.g. `/cars/10`
+- Get all the car specifications by brand: method `GET`, URL: `/cars?brand=<brand>` e.g. `/cars?brand=ford`
+
+In the first case if the specified car `id` parameter is not present in the DB, a `HTTP 404` error is returned.<br>
+For the second endpoint the `brand` request parameter is optional and the search is case insensitive. If the URL `/cars` is called, all the cars will be returned.
+This behaviour is on purpose to make the API more flexible.<br>
+
+The car DTO returned contains all the fields from the car table except the parent model.
+Also Engine and Wheels DTOs don't contain an ID because for now there is no endpoint that can be used with that ID. 
 
 ## D - Adding images
 

@@ -9,18 +9,14 @@ import javax.persistence.Entity;
 @Entity
 @Getter
 @Setter
+@AllArgsConstructor
 @NoArgsConstructor
+@Builder(toBuilder = true)
 @ToString(callSuper = true)
 public class Wheels extends AbstractPersistable<Long> {
 
   private int size;
   private Type type;
-
-  @Builder(toBuilder = true)
-  public Wheels(int size, Type type) {
-    this.size = size;
-    this.type = type;
-  }
 
   public enum Type {
     STEEL,
