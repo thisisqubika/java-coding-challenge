@@ -51,3 +51,19 @@ For the REST API we can add a new endpoint that returns the image file: method `
 We can leverage Spring FileSystemResource in our Controller.
 
 ## E - Improvements
+Possible improvements that can be done on this project are:
+
+1. In the REST API on the `get all cars` endpoint we could make it pageable using the Spring classes Pageable (in the request) and Page (as response).
+Also the same change needs to be done in CarRepository.
+With this improvement we can make sure to don't impact on performance if we have large amount of data in our DB. This change needs to be agreed with the customer.
+
+2. Another improvement in the REST API could be to add support to hypermedia-driven REST API with `spring-hateoas`.
+HATEOAS is used to guide the client through the application by returning relevant information about the next potential steps, along with each response.
+For example the JSON response from `/cars/<id>` endpoint will also contain a link to the API itself and to the image API designed in part `D`.
+
+3. Swagger also is another interesting library that can be used to improve the REST API.
+This is used to generate an interactive API documentation that can be used to visualize and test APIs without the client code.
+
+4. In CarMapper the String "Ford" that refers to the brand, is hardcoded. This could be improved making it configurable through a property.
+
+5. Adding unit tests for each classes that have business logic.
