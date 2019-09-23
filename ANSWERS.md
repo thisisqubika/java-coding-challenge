@@ -33,5 +33,21 @@ The car DTO returned contains all the fields from the car table except the paren
 Also Engine and Wheels DTOs don't contain an ID because for now there is no endpoint that can be used with that ID. 
 
 ## D - Adding images
+To add images for each car model, we need to work on the `ingest` process (part `B`) and the `API` (part `C`).
+
+Let's first analyse the `ingest` process. I would add a configurable `image store root path` of the folder that the ingest process will scan.
+This is also our image store where all the images of the car will be saved. The root path will be something like `image-store/` and for the ingestion of each brand we scan a subfolder as: `image-store/ford`.
+The client will need to copy the images in the proper configured folder. Having a single image store root path will help in case we need to migrate those data.<br>
+
+The ingest process would be changed with an additional step after the un-marshalling of the XML car catalogue:
+    for each car model we scan the image folder to see if there is an image file in there with the same name of the car model.
+If so, we  we will save the image relative path into the DB (e.g. `ford/Aspire.jpg`) and leave the binary file in the filesystem.<br>
+
+A preferable approach, if our customer can change the XML structure, would be to add the image file name in the catalogue.
+The ingest process would look for an image specified in a new attribute `imageName` in the XML `MODEL` tag and it will save the image relative path into the DB.
+This would solve the problem that a car model name can have some characters not allowed in a file name.<br>
+
+For the REST API we can add a new endpoint that returns the image file: method `GET`, URL: `/cars/<id>/image`.
+We can leverage Spring FileSystemResource in our Controller.
 
 ## E - Improvements
