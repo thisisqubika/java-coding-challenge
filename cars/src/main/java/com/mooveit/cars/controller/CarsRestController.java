@@ -68,8 +68,7 @@ public class CarsRestController {
 		}
 	}
 
-	@RequestMapping(value = "createXmlCars", method = RequestMethod.POST, produces = {
-			MimeTypeUtils.APPLICATION_JSON_VALUE }, headers = "Accept=application/json", consumes = "text/xml")
+	@RequestMapping(value = "createXmlCars", method = RequestMethod.POST,  consumes = "text/xml")
 	public ResponseEntity<String> createXMLModel(@RequestBody String xml) {
 		try {
 			carService.createXMLModel(xml);
