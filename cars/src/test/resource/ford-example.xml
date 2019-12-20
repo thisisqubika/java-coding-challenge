@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<CATALOGUE>
+    <MODEL name="Aspire" from="1994" to="1997" brand="Ford" type="subcompact">
+        <ENGINE power="1400" type="GAS"/>
+        <WHEELS size="R15" type="STEEL"/>
+        <SUBMODELS>
+            <MODEL name="Aspire 2" line="hatchback">
+                <ENGINE power="1600" type="GAS"/>
+                <WHEELS size="R15" type="STEEL"/>
+            </MODEL>          
+        </SUBMODELS>
+    </MODEL>
+    <MODEL name="Sail" from="2012" to="2020" brand="Chevrolet" type="car">
+        <ENGINE power="1400" type="GAS"/>
+        <WHEELS size="R14" type="STEEL"/>
+        <SUBMODELS>
+            <MODEL name="Sail LTZ" line="hatchback">
+                <ENGINE power="1400" type="GAS"/>
+                <WHEELS size="R14" type="STEEL"/>
+            </MODEL>          
+        </SUBMODELS>
+    </MODEL>
+</CATALOGUE>

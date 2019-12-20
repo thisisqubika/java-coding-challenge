@@ -5,10 +5,19 @@ cars:
 
 spring:
   datasource:
-    url: jdbc:h2:mem:carsdb
+    url: jdbc:h2:mem:carsdb;DB_CLOSE_ON_EXIT=FALSE
     driverClassName: org.h2.Driver
     username: sa
     password:
   jpa:
     database-platform: 'org.hibernate.dialect.H2Dialect'
+    hibernate:
+        properties:
+             hibernate.cache.use_second_level_cache: false
+             hibernate.cache.use_query_cache: false
+             hibernate.generate_statistics: false
+             hibernate.cache.region.factory_class: org.hibernate.cache.ehcache.SingletonEhCacheRegionFactory
+             hibernate.enable_lazy_load_no_trans: true
+             hibernate.current_session_context_class: thread
+             hibernate.ddl-auto: update
   h2.console.enabled: true
