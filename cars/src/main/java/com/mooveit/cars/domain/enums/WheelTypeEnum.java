@@ -4,8 +4,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public enum WheelTypeEnum {
-    STEEL("Gasoline"),
-    ALLOY("Alloy");
+    STEEL("Steel"),
+    ALLOY("Alloy"),
+    CHROME("Chrome");
 
     private String description;
 
