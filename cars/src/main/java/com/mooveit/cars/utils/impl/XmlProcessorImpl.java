@@ -27,8 +27,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static java.util.Objects.nonNull;
 import static java.util.Objects.isNull;
+import static java.util.Objects.nonNull;
 
 @Slf4j
 @Service
@@ -54,7 +54,7 @@ public class XmlProcessorImpl implements XmlProcessor {
     public void processFile(File xmlFile, Brand brand) {
 
         FileProcessed fileProcessed = fileProcessedRepository.findByName(xmlFile.getName());
-        if(nonNull(fileProcessed)) {
+        if (nonNull(fileProcessed)) {
             log.info(String.format("El archivo %s ya ha sido procesado el %s", xmlFile.getName(), fileProcessed.getProcessedDate().toString()));
             return;
         }
@@ -80,12 +80,14 @@ public class XmlProcessorImpl implements XmlProcessor {
     private Model processModel(ModelXmlDTO model, Long parentId, Brand brand) {
         try {
             Engine engine = engineRepository.findByPowerAndType(model.getEngineXmlDTO().getPower(), EngineTypeEnum.valueOf(model.getEngineXmlDTO().getType()));
-            if(isNull(engine)) engine = engineRepository.save(Engine.builder().power(model.getEngineXmlDTO().getPower()).type(nonNull(model.getEngineXmlDTO()) && nonNull(model.getEngineXmlDTO().getType()) ? EngineTypeEnum.valueOf(model.getEngineXmlDTO().getType()) : null).build());
+            if (isNull(engine))
+                engine = engineRepository.save(Engine.builder().power(model.getEngineXmlDTO().getPower()).type(nonNull(model.getEngineXmlDTO()) && nonNull(model.getEngineXmlDTO().getType()) ? EngineTypeEnum.valueOf(model.getEngineXmlDTO().getType()) : null).build());
 
             Wheel wheel = wheelRepository.findBySizeAndType(model.getWheelXmlDTO().getSize(), WheelTypeEnum.valueOf(model.getWheelXmlDTO().getType()));
-            if(isNull(wheel)) wheel = wheelRepository.save(Wheel.builder().size(nonNull(model.getWheelXmlDTO()) ? model.getWheelXmlDTO().getSize() : null).type(nonNull(model.getWheelXmlDTO()) && nonNull(model.getWheelXmlDTO().getType()) ? WheelTypeEnum.valueOf(model.getWheelXmlDTO().getType()) : null).build());
+            if (isNull(wheel))
+                wheel = wheelRepository.save(Wheel.builder().size(nonNull(model.getWheelXmlDTO()) ? model.getWheelXmlDTO().getSize() : null).type(nonNull(model.getWheelXmlDTO()) && nonNull(model.getWheelXmlDTO().getType()) ? WheelTypeEnum.valueOf(model.getWheelXmlDTO().getType()) : null).build());
 
-            return nonNull(parentId) ? getBuildModel(model, parentId, engine, wheel, brand): modelRepository.save(getBuildModel(model, parentId, engine, wheel, brand));
+            return nonNull(parentId) ? getBuildModel(model, parentId, engine, wheel, brand) : modelRepository.save(getBuildModel(model, parentId, engine, wheel, brand));
 
         } catch (Exception e) {
             e.printStackTrace();

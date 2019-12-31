@@ -7,8 +7,6 @@ import lombok.*;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 
 @Table(name = "MODELS")
 @Entity
@@ -47,11 +45,6 @@ public class Model implements Serializable {
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.REMOVE, CascadeType.DETACH})
     @JoinColumn(name = "brand_id")
     private Brand brand;
-
-    /*
-    @OneToMany(mappedBy="parent")
-    private Set<Model> submodels = new HashSet<Model>();
-    */
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.REMOVE, CascadeType.DETACH})
     @JoinColumn(name = "engine")
