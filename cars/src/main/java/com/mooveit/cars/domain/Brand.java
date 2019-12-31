@@ -1,28 +1,25 @@
 package com.mooveit.cars.domain;
 
-import com.mooveit.cars.domain.enums.WheelTypeEnum;
 import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Set;
 
-@Table(name = "WHEELS")
+@Table(name = "BRANDS")
 @Entity
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode
-public class Wheel implements Serializable {
+public class Brand implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "size")
-    private String size;
+    @Column(name = "name")
+    private String name;
 
-    @Column(name = "type")
-    @Enumerated(EnumType.STRING)
-    private WheelTypeEnum type;
 }

@@ -2,32 +2,31 @@ package com.mooveit.cars.domain;
 
 import com.mooveit.cars.domain.enums.ModelLineEnum;
 import com.mooveit.cars.domain.enums.ModelTypeEnum;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.sql.Date;
-import java.util.Collection;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
-@Table(name = "models")
+@Table(name = "MODELS")
 @Entity
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode
 public class Model implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "name")
     private String name;
 
-    @Column(name = "from")
+    @Column(name = "xrom")
     private Date from;
 
     @Column(name = "to")
@@ -41,17 +40,24 @@ public class Model implements Serializable {
     @Enumerated(EnumType.STRING)
     private ModelLineEnum line;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.REMOVE, CascadeType.DETACH})
+    @JoinColumn(name = "parent_id")
     private Model parent;
 
-    @OneToMany(mappedBy="parent")
-    private Collection<Model> children;
+    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.REMOVE, CascadeType.DETACH})
+    @JoinColumn(name = "brand_id")
+    private Brand brand;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    /*
+    @OneToMany(mappedBy="parent")
+    private Set<Model> submodels = new HashSet<Model>();
+    */
+
+    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.REMOVE, CascadeType.DETACH})
     @JoinColumn(name = "engine")
     private Engine engine;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.REMOVE, CascadeType.DETACH})
     @JoinColumn(name = "wheel")
     private Wheel wheel;
 

@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.io.Serializable;
 
-@Table(name = "engines")
+@Table(name = "ENGINES")
 @Entity
 @Data
 @Builder
@@ -18,7 +18,7 @@ import java.io.Serializable;
 public class Engine implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "power")
