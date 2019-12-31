@@ -14,6 +14,14 @@ files that are already processed.
 
 ## C - Expose data with a RESTful API
 
+Postman Collection 
+https://www.getpostman.com/collections/97c9b5e3840d39497e1d
+In this postman Collection you can find the methods.
+(
+    -   Get a car specification by id
+    -   Get all the car specifications by brand
+)
+
 In this point i use RestRepositories (https://spring.io/projects/spring-data-rest), the main reason is because this allow me to avoid the boilerplating using the structure Controller->Service->ServiceImplementation->Repository, you can use this kind of structure when you need to perform some actions on the service layer, maybe data transforming or another bussines logic things, but if you only need to expose some info RestRepositories is perfect.
 
 ## D - Adding images
