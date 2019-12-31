@@ -55,7 +55,7 @@ public class XmlProcessorImpl implements XmlProcessor {
 
         FileProcessed fileProcessed = fileProcessedRepository.findByName(xmlFile.getName());
         if (nonNull(fileProcessed)) {
-            log.info(String.format("El archivo %s ya ha sido procesado el %s", xmlFile.getName(), fileProcessed.getProcessedDate().toString()));
+            log.info(String.format("File %s was already processed %s", xmlFile.getName(), fileProcessed.getProcessedDate().toString()));
             return;
         }
 
@@ -75,6 +75,8 @@ public class XmlProcessorImpl implements XmlProcessor {
         xmlAdapter.disposeStreamReader(streamReaderReference);
 
         fileProcessedRepository.save(FileProcessed.builder().name(xmlFile.getName()).processedDate(new Date()).build());
+
+        log.info(String.format("File %s processed", xmlFile.getName()));
     }
 
     private Model processModel(ModelXmlDTO model, Long parentId, Brand brand) {
