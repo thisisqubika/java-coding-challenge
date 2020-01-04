@@ -7,5 +7,11 @@ The idea with this diagram is to separate each entity that I identified in the x
 ## C - Expose data with a RESTful API
 
 ## D - Adding images
+First of all, a byte array image field must be added to the entities that require it, using the @Lob and @Type annotations ("org.hibernate.type.BinaryType"). Then the application properties are modified and the following line is added (spring.jpa.properties.hibernate.jdbc.lob.non_contextual_creation = true). A column of type CLob must be created in the database
 
+In the XML file add an element of type Base64.
+
+In the Job you must create a processor to transform the base64 data to an array of bytes in java.
+
+Then you must create a controller that handles requests related to uploading images or files and making the respective query.
 ## E - Improvements
