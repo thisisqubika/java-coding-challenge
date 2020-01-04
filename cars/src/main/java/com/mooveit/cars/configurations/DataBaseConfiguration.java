@@ -8,4 +8,5 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @EntityScan(basePackages = {"com.mooveit.cars.domain"})
 @EnableJpaRepositories(basePackages = {"com.mooveit.cars.repositories"})
 public class DataBaseConfiguration {
+	
 }
