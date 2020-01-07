@@ -26,6 +26,11 @@ different ingester services created specifically for each brand.
 
 ## C - Expose data with a RESTful API
 
+I created a CarController for all car information related endponts.
+As a part of this I created custom response entities for the endpoints to return. 
+Also, I added ControllerAdvice to handle exceptions and not return the error to the user.
+Tests for CarController were added.
+
 ## D - Adding images
 
 ## E - Improvements
