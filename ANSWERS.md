@@ -33,4 +33,32 @@ Tests for CarController were added.
 
 ## D - Adding images
 
+To support image addition I would add a new table that contains the image id and a blob representing the image, which will be 
+stored as a String encoded as Base64 (lets suppose we call the table IMAGE).
+
+I would also add to model and submodel's tables, a new column "image_id", that contains the image related to the model, and 
+will be represented in the entity as a String, which for convenience sake I'll @JsonInclude(Include.NON_NULL)
+so in the response of the API call it wont show if there isn't an image associated to the mnodel. I'll expose the image as a
+String encoded in Base64 in the response. That's if every model only has one image associated. 
+
+If the models/submodels can have more than one image associated,my approach would be different, having IMAGE a total of 4 
+columns: The id, the blob that contains the image, a column "model_id", and a column "submodel_id". 
+Both of the last two columns will be nullable (as the image can be associated to a model, or a submodel, or both a model and
+a submodel).
+
+The entities for MODEL and SUBMODEL will have to change to accomodate for this, having now a new List<String> representing 
+the images related to given model/submodel (this will be a OneToMany association).
+
+When sending the reponse, I'll do the same approach as with one image, choosing to send the images as a list of encoded Base64 
+Strings.
+
+A perhaps better solution would be to have the images not send as a String on the response for the endpoints created,
+but create a new endpoint "/car/image/{id}", which returns the image solicited by id as an "image/png".
+
+And how do we get the id of the image?
+Well we have a couple of ways to do it, one would be having another endpoint "/car/{id}/images" that returns a list of id
+of the images associated to that car (this will envolve the creation of new queries in the repositories), and another approach
+would be directly giving the link to the different endpoints with the images, for each model and submodel, in the same 
+endpoints created for item C. 
+
 ## E - Improvements
