@@ -62,3 +62,13 @@ would be directly giving the link to the different endpoints with the images, fo
 endpoints created for item C. 
 
 ## E - Improvements
+
+One of the things that will improve my solution would be the addition of a security layer, having to authenticate to call the 
+endpoints, or if it will only be consumed by our local branches, we can secure it using Client Certificates.
+
+Another improvement would be to add a cache for the services.
+
+Also I would change the use of a brand column in Model, for a "brand_id" column, which references a new table "Brand", 
+containing the brands supported by our Customer.
+
+For documentation, OPEN API/Swagger could be used.
