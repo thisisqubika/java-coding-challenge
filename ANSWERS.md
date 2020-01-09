@@ -27,3 +27,15 @@
  would be referenced in the hyperlink of the urlpath attribute.
 
 ## E - Improvements
+
+ As improvements to data loading, it is a good option to use spring-integration with inbound-channels
+ and service-activator. it can be define a flow with channels where the first channel would be an inbound-channel
+ to read the files and the rest of the channels, could be service-activater channels to process the files, as well
+ as a hospital channel to store the files that for some reason failed while they were processed.
+ 
+ Api documentation: at the time of this development there is an issue (https://github.com/springfox/springfox/issues/2932) 
+ for springfox-swagger. since there are problems running when you use swagger 2.9.2 with spring boot 2.2.0 and HATEOAS. 
+ In the next versions of swagger this could be solved. Another alternative is Open Api (https://github.com/springdoc/springdoc-openapi).
+ 
+ The application has a set of unit tests with JUnit5, Mockito and integration tests with Spring Test, 
+ however the tests are never left over, so more tests can be added to the application, to achieve greater code coverage.
