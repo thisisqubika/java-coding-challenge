@@ -15,6 +15,8 @@
 
 ## C - Expose data with a RESTful API
 
+ Notes: HATEOAS was used for hyperlinks and pagination of Rest Services.
+
 ## D - Adding images
 
 ## E - Improvements
