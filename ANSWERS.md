@@ -9,6 +9,10 @@
 
 ## B - Ingest the data
 
+ The data ingest algorithm was implemented  with recursive approach, since the data model 
+ allows adding new levels of cars. Adding a new level of cars in the input file, would not 
+ be a limitation for the application.
+
 ## C - Expose data with a RESTful API
 
 ## D - Adding images

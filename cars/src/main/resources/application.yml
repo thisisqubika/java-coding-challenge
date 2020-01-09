@@ -1,7 +1,22 @@
 cars:
   ford:
     ingester:
-      runCron: '0 * * ? * *' #each minute
+      runCron: 0 * * ? * *
+
+
+input:
+  file:
+    ford:
+      xml:  ford-example.xml
+      xsd:  ford-example.xsd
+      brandName: Ford
+
+server:
+  origin: http://domain1.com, http://domain2.com
+
+thread:
+  cant: 1
+  name: mooveitCars
 
 spring:
   datasource:
