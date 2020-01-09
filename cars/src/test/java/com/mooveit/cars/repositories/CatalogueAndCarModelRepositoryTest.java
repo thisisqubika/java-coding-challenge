@@ -58,12 +58,6 @@ class CatalogueAndCarModelRepositoryTest {
         carModelEntityD.setCatalogueEntity(catalogueEntity);
 
         catalogueEntity.setName("Brand Name");
-
-        //List<CarModelEntity> carModelsEntityListForCatalogue = new ArrayList<>();
-        //carModelsEntityListForCatalogue.add(carModelEntityParent);
-        //carModelsEntityListForCatalogue.add(carModelEntityC);
-        //carModelsEntityListForCatalogue.add(carModelEntityD);
-       // catalogueEntity.setCarModelEntities(carModelsEntityListForCatalogue);
     }
 
 
