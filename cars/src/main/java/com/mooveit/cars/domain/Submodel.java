@@ -104,4 +104,9 @@ public class Submodel {
 		this.model_id = model_id;
 	}
 
+	@Override
+	public String toString() {
+		return "Submodel [submodel_name=" + submodel_name + ", submodel_line=" + submodel_line + "]";
+	}
+
 }

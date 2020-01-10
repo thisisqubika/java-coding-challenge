@@ -88,4 +88,9 @@ public class Engine {
 		this.submodel = submodel;
 	}
 
+	@Override
+	public String toString() {
+		return "Engine [engine_power=" + engine_power + ", engine_type=" + engine_type + "]";
+	}
+
 }

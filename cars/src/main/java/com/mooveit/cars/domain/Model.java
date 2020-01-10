@@ -133,4 +133,10 @@ public class Model {
 		
 	}
 
+	@Override
+	public String toString() {
+		return "Model [model_name=" + model_name + ", model_from=" + model_from + ", model_to=" + model_to
+				+ ", model_type=" + model_type + "]";
+	}
+
 }
