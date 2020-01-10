@@ -30,23 +30,23 @@ public class JobListener extends JobExecutionListenerSupport {
 	@Override
 	public void afterJob(JobExecution jobExecution) {
 		if (jobExecution.getStatus() == BatchStatus.COMPLETED) {
-			LOG.info("Finalizo el job!!  Verifica los resultados");
+			LOG.info("Job Finished!!  Verifying results");
 			jdbcTemplate
 					.query("SELECT wheel_size,wheel_type FROM WHEELS",
 							(rs, row) -> new Wheel(rs.getString(1), rs.getString(2)))
-					.forEach(wheel -> LOG.info("Registro ruedas <" + wheel + ">"));
+					.forEach(wheel -> LOG.info("Wheels Added <" + wheel + ">"));
 			
 			jdbcTemplate.query("SELECT engine_power,engine_type FROM ENGINES",
 					(rs, row) -> new Engine(rs.getInt(1), rs.getString(2)))
-			.forEach(engine -> LOG.info("Registro Motores <" + engine + ">"));
+			.forEach(engine -> LOG.info("Engines Added <" + engine + ">"));
 			
 			jdbcTemplate.query("SELECT model_name, model_from, model_to, model_type FROM MODELS",
 					(rs, row) -> new Model(rs.getString(1), rs.getInt(2), rs.getInt(3),rs.getString(4)))
-			.forEach(model -> LOG.info("Registro Modelos <" + model + ">"));
+			.forEach(model -> LOG.info("Models Added <" + model + ">"));
 			
 			jdbcTemplate.query("SELECT submodel_name, submodel_line FROM SUBMODELS",
 					(rs, row) -> new Submodel(rs.getString(1), rs.getString(2)))
-			.forEach(submodel -> LOG.info("Registro SubModelos <" + submodel + ">"));
+			.forEach(submodel -> LOG.info("Submodels Added <" + submodel + ">"));
 		}
 	}
 }

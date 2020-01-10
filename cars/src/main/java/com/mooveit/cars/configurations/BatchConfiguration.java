@@ -101,7 +101,6 @@ public class BatchConfiguration {
 
 	@Bean
 	public JdbcBatchItemWriter<Model> writer3(DataSource dataSource) {
-		LOG.info("creando insert modelos");
 		return new JdbcBatchItemWriterBuilder<Model>()
 				.itemSqlParameterSourceProvider(new BeanPropertyItemSqlParameterSourceProvider<>())
 				.sql("INSERT INTO MODELS (model_name, model_from, model_to, model_type) VALUES (:model_name, :model_from, :model_to, :model_type)")
