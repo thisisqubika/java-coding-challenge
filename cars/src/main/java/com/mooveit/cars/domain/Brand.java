@@ -9,8 +9,9 @@ import lombok.*;
 public class Brand {
 
 	@Id
-	@GeneratedValue
-	private Integer id;
+	@GeneratedValue(generator = "brand_id_seq", strategy = GenerationType.SEQUENCE)
+	@SequenceGenerator(name = "brand_id_seq", sequenceName = "brand_id_seq")
+	private int id;
 	
 	@NonNull
 	private String name;

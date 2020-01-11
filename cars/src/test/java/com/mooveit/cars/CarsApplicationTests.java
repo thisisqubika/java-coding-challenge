@@ -3,10 +3,15 @@ package com.mooveit.cars;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
+import java.io.File;
+import java.io.IOException;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.mooveit.cars.domain.Brand;
@@ -17,6 +22,7 @@ import com.mooveit.cars.repositories.BrandRepositoryI;
 import com.mooveit.cars.repositories.EngineRepositoryI;
 import com.mooveit.cars.repositories.ModelRepositoryI;
 import com.mooveit.cars.repositories.WheelsRepositoryI;
+import com.mooveit.cars.utils.DatabaseLoad;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -30,11 +36,79 @@ public class CarsApplicationTests {
   private WheelsRepositoryI wheelsRepository;
   @Autowired
   private ModelRepositoryI modelRepository;
+  
+  @Autowired
+  private DatabaseLoad databaseLoad;
+  
+//	@Test
+//  public void contextLoads() {  
+//  }
   	
 	@Test
-  public void contextLoads() {  
-  }
-  
+	public void testLoadingFord() {
+		
+		Resource resource = new ClassPathResource("ford-example.xml");
+		
+		assertNotNull(resource);
+				
+		File file;
+		try {
+			file = resource.getFile();
+			databaseLoad.modelsLoadFord(file);
+		} catch (IOException e) { 
+			e.printStackTrace();
+		}
+		
+	}
+
+	@Test
+	public void testDatabase() {
+				
+		Brand brand = brandRepository.getByName("Ford");
+		if (brand == null) {			
+			brand = brandRepository.saveAndFlush(new Brand("Ford"));
+		}
+		
+		Engine engine = engineRepository.getByPowerAndType("1600", "GAS");
+		if (engine == null) {
+			engine = engineRepository.saveAndFlush(new Engine("1600", "GAS"));
+		}
+		
+		Wheels wheels = wheelsRepository.getBySizeAndType("R15", "STEEL");
+		if (wheels == null) {			
+			wheels = wheelsRepository.saveAndFlush(new Wheels("R15", "STEEL"));
+		}		
+		
+		Model model = modelRepository.getByName("Aspire");
+		if (model == null) {			
+			model = modelRepository.saveAndFlush(new Model("Aspire", brand, engine, wheels));
+			assertNotNull(model);
+		}
+		
+		Model model2 = modelRepository.getByName("Aspire 2");
+		if (model2 == null) {
+			model2 = new Model("Aspire 2", brand, engine, wheels);
+			model2.setLine("hatchback");
+			model2.setParentModel(model);
+			model2 = modelRepository.saveAndFlush(model2);
+			assertNotNull(model2);
+		}		
+		
+		if (!model.getSubModels().contains(model2)) {
+			
+			model.getSubModels().add(model2);
+			model = modelRepository.saveAndFlush(model);
+			
+			model2.setParentModel(model);
+			model2 = modelRepository.saveAndFlush(model2);
+			
+		}
+
+		assertNotNull(model);		
+		assertNotNull(model2);
+		
+	}
+	
 	@Test
 	public void testInsertEntities() {
 		
@@ -71,17 +145,17 @@ public class CarsApplicationTests {
 		// Insert of a Model with their respective SubModels
 		
 		Engine engine2 = engineRepository.save(new Engine("1400", "GAS"));
-		Model model = modelRepository.save(new Model(brand, "Aspire", engine2, wheel));
+		Model model = modelRepository.save(new Model("Aspire", brand, engine2, wheel));
 		
 		assertNotNull(model);
 		
-		Model subModel1 = new Model(brand, "Aspire 2", engine, wheel);
+		Model subModel1 = new Model("Aspire 2", brand, engine, wheel);
 		subModel1.setParentModel(model);
 		Model savedSubModel1 = modelRepository.save(subModel1);
 		
 		assertNotNull(savedSubModel1);
 		
-		Model subModel2 = new Model(brand, "Aspire 4", engine, wheel);
+		Model subModel2 = new Model("Aspire 4", brand, engine, wheel);
 		subModel2.setParentModel(model);
 		Model savedSubModel2 = modelRepository.save(subModel2);
 		assertNotNull(savedSubModel2);

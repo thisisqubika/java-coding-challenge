@@ -9,7 +9,8 @@ import lombok.*;
 public class Wheels {
 	
 	@Id
-	@GeneratedValue
+	@GeneratedValue(generator = "wheels_id_seq", strategy = GenerationType.SEQUENCE)
+	@SequenceGenerator(name = "wheels_id_seq", sequenceName = "wheels_id_seq")
 	private int id;
 	
 	@NonNull

@@ -6,10 +6,12 @@ cars:
 spring:
   datasource:
     url: jdbc:h2:mem:carsdb;DB_CLOSE_ON_EXIT=FALSE
+    #url: jdbc:h2:~/testdb
     driverClassName: org.h2.Driver
     username: sa
     password:
   jpa:
     database-platform: 'org.hibernate.dialect.H2Dialect'
     show-sql: true
+    hibernate:      ddl-auto: update
   h2.console.enabled: true

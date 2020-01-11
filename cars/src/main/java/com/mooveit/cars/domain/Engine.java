@@ -9,7 +9,8 @@ import lombok.*;
 public class Engine {
 	
 	@Id
-	@GeneratedValue
+	@GeneratedValue(generator = "engine_id_seq", strategy = GenerationType.SEQUENCE)
+	@SequenceGenerator(name = "engine_id_seq", sequenceName = "engine_id_seq")
 	private int id;
 	
 	@NonNull

@@ -9,6 +9,12 @@ The diagram was constructed directly from Java Sources using <a href="www.object
 
 ## B - Ingest the data
 
+I constructed the following Class to extract XML:
+* *com.mooveit.cars.utils.HandlerXMLFord*
+
+And some unit test's:
+* *com.mooveit.cars.testLoadingFord*
+
 ## C - Expose data with a RESTful API
 
 ## D - Adding images

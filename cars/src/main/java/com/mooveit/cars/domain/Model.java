@@ -1,8 +1,6 @@
 package com.mooveit.cars.domain;
 
-import java.util.HashSet;
-import java.util.Set;
-
+import java.util.*;
 import javax.persistence.*;
 import lombok.*;
 
@@ -12,20 +10,21 @@ import lombok.*;
 public class Model {
 	
 	@Id
-	@GeneratedValue
+	@GeneratedValue(generator = "model_id_seq", strategy = GenerationType.SEQUENCE)
+	@SequenceGenerator(name = "model_id_seq", sequenceName = "model_id_seq")
 	private int id;
+
+	@NonNull
+	private String name;
 	
 	@ManyToOne
 	@NonNull
 	private Brand brand;
-	
-	@NonNull
-	private String name;
 		
 	private String type;
 	private String line;
-	private int fromYear;
-	private int toYear;
+	private String fromYear;
+	private String toYear;
 	
 	@ManyToOne
 	@NonNull
@@ -35,7 +34,7 @@ public class Model {
 	@NonNull
 	private Wheels wheels;
 	
-	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "parentModel")
 	private Set<Model> subModels = new HashSet<>();
 	
 	@ManyToOne
