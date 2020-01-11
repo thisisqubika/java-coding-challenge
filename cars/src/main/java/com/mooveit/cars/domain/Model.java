@@ -15,6 +15,7 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -44,7 +45,8 @@ public class Model {
 	@XmlAttribute(name = "type")
 	private String model_type;
 	
-	@XmlElement(name = "SUBMODELS")
+	@XmlElementWrapper(name="SUBMODELS")
+    @XmlElement(name="MODEL")
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name = "model_id")
 	private List<Submodel> submodels;

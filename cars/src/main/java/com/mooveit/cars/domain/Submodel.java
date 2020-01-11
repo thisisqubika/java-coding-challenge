@@ -34,17 +34,18 @@ public class Submodel {
 	@XmlAttribute(name = "line")
 	private String submodel_line;
 
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY/* , optional = false */)
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "model_id")
 	@JsonIgnore
 	private Model model_id;
 
-	@OneToOne(cascade = CascadeType.ALL/* , optional = false */)
+	@XmlElement(name = "WHEELS")
+	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "wheel_id")
 	private Wheel wheel;
 
 	@XmlElement(name = "ENGINE")
-	@OneToOne(cascade = CascadeType.ALL/* , optional = false */)
+	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "engine_id")
 	private Engine engine;
 
