@@ -34,7 +34,7 @@ public class ModelsController {
 	@GetMapping
 	@RequestMapping("/brand/{model_name}")
 	public List<Model> getBrand(@PathVariable String model_name) {
-		return modelRepository.getCarSpecificationByBrand(model_name);
+		return modelRepository.getCarSpecificationByBrand(model_name.toLowerCase());
 	}
 
 	@PostMapping

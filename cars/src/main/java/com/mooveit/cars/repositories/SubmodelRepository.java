@@ -13,7 +13,7 @@ public interface SubmodelRepository extends JpaRepository<Submodel, Long>{
 	
 	@Query(value = "SELECT S.* "
 			+ "FROM SUBMODELS AS S "
-			+ "WHERE S.submodel_name like %:name%",
+			+ "WHERE LOWER(S.submodel_name) like %:name%",
             nativeQuery = true
     )
     List<Submodel> getCarSpecificationByBrand(@Param("name") String name);

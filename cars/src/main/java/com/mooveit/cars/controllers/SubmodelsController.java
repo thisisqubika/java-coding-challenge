@@ -32,6 +32,6 @@ public class SubmodelsController {
 	@GetMapping
 	@RequestMapping("/brand/{name}")
 	public List<Submodel> getBrand(@PathVariable String name) {
-		return submodelRepository.getCarSpecificationByBrand(name);
+		return submodelRepository.getCarSpecificationByBrand(name.toLowerCase());
 	}
 }

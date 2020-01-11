@@ -14,7 +14,7 @@ public interface ModelRepository extends JpaRepository<Model, Long>  {
 	
 	@Query(value = "SELECT M.* "
 			+ "FROM MODELS AS M "
-			+ "WHERE M.model_name like %:model_name%",
+			+ "WHERE LOWER(M.model_name) like %:model_name%",
             nativeQuery = true
     )
     List<Model> getCarSpecificationByBrand(@Param("model_name") String model_name);
