@@ -14,6 +14,7 @@ import javax.persistence.OneToOne;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -43,17 +44,18 @@ public class Model {
 	@XmlAttribute(name = "type")
 	private String model_type;
 	
+	@XmlElement(name = "SUBMODELS")
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name = "model_id")
-
 	private List<Submodel> submodels;
 
-	
-	@OneToOne
+	@XmlElement(name = "WHEELS")
+	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, optional = false)
 	@JoinColumn(name = "wheel_id")
 	private Wheel wheel;
 	
-	@OneToOne
+	@XmlElement(name = "ENGINE")
+	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, optional = false)
 	@JoinColumn(name = "engine_id")
 	private Engine engine;
 

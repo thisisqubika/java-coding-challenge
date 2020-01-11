@@ -1,6 +1,6 @@
 package com.mooveit.cars.configurations;
 
-import javax.sql.DataSource;
+import javax.persistence.EntityManagerFactory;
 
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
@@ -8,9 +8,7 @@ import org.springframework.batch.core.configuration.annotation.EnableBatchProces
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
 import org.springframework.batch.core.launch.support.RunIdIncrementer;
-import org.springframework.batch.item.database.BeanPropertyItemSqlParameterSourceProvider;
-import org.springframework.batch.item.database.JdbcBatchItemWriter;
-import org.springframework.batch.item.database.builder.JdbcBatchItemWriterBuilder;
+import org.springframework.batch.item.database.JpaItemWriter;
 import org.springframework.batch.item.xml.StaxEventItemReader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -34,106 +32,35 @@ public class BatchConfiguration {
 	@Autowired
 	public StepBuilderFactory stepBuilderFactory;
 
-	@Bean
-	public StaxEventItemReader<Wheel> reader() {
-		StaxEventItemReader<Wheel> staxEventItemReader = new StaxEventItemReader<>();
-		staxEventItemReader.setResource(new ClassPathResource("ford-example.xml"));
-		staxEventItemReader.setFragmentRootElementName("WHEELS");
-		Jaxb2Marshaller unMarshaller = new Jaxb2Marshaller();
-		unMarshaller.setClassesToBeBound(Wheel.class);
-		staxEventItemReader.setUnmarshaller(unMarshaller);
-		return staxEventItemReader;
-	}
+	@Autowired
+	public EntityManagerFactory emf;
 
 	@Bean
-	public StaxEventItemReader<Engine> reader2() {
-		StaxEventItemReader<Engine> staxEventItemReader = new StaxEventItemReader<>();
-		staxEventItemReader.setResource(new ClassPathResource("ford-example.xml"));
-		staxEventItemReader.setFragmentRootElementName("ENGINE");
-		Jaxb2Marshaller unMarshaller = new Jaxb2Marshaller();
-		unMarshaller.setClassesToBeBound(Engine.class);
-		staxEventItemReader.setUnmarshaller(unMarshaller);
-		return staxEventItemReader;
-	}
-
-	@Bean
-	public StaxEventItemReader<Model> reader3() {
+	public StaxEventItemReader<Model> xmlFileReader() {
 		StaxEventItemReader<Model> staxEventItemReader = new StaxEventItemReader<>();
 		staxEventItemReader.setResource(new ClassPathResource("ford-example.xml"));
-		staxEventItemReader.setFragmentRootElementName("MODEL");
+		staxEventItemReader.setFragmentRootElementNames(new String[] { "MODEL", "WHEELS", "ENGINE", "SUBMODELS" });
 		Jaxb2Marshaller unMarshaller = new Jaxb2Marshaller();
-		unMarshaller.setClassesToBeBound(Model.class);
+		unMarshaller.setClassesToBeBound(Model.class, Engine.class, Wheel.class, Submodel.class);
 		staxEventItemReader.setUnmarshaller(unMarshaller);
 		return staxEventItemReader;
 	}
 
 	@Bean
-	public StaxEventItemReader<Submodel> reader4() {
-		StaxEventItemReader<Submodel> staxEventItemReader = new StaxEventItemReader<>();
-		staxEventItemReader.setResource(new ClassPathResource("ford-example.xml"));
-		staxEventItemReader.setFragmentRootElementName("SUBMODELS");
-		Jaxb2Marshaller unMarshaller = new Jaxb2Marshaller();
-		unMarshaller.setClassesToBeBound(Submodel.class);
-		staxEventItemReader.setUnmarshaller(unMarshaller);
-		return staxEventItemReader;
-	}
-
-
-	@Bean
-	public JdbcBatchItemWriter<Wheel> writer(DataSource dataSource) {
-		return new JdbcBatchItemWriterBuilder<Wheel>()
-				.itemSqlParameterSourceProvider(new BeanPropertyItemSqlParameterSourceProvider<>())
-				.sql("INSERT INTO WHEELS (wheel_size, wheel_type) VALUES (:wheel_size, :wheel_type)")
-				.dataSource(dataSource).build();
+	public JpaItemWriter<Model> writeToDb() {
+		JpaItemWriter<Model> writer = new JpaItemWriter<Model>();
+		writer.setEntityManagerFactory(emf);
+		return writer;
 	}
 
 	@Bean
-	public JdbcBatchItemWriter<Engine> writer2(DataSource dataSource) {
-		return new JdbcBatchItemWriterBuilder<Engine>()
-				.itemSqlParameterSourceProvider(new BeanPropertyItemSqlParameterSourceProvider<>())
-				.sql("INSERT INTO ENGINES (engine_power, engine_type) VALUES (:engine_power, :engine_type)")
-				.dataSource(dataSource).build();
+	public Step step1(JpaItemWriter<Model> writer) {
+		return stepBuilderFactory.get("step1").<Model, Model>chunk(10).reader(xmlFileReader()).writer(writer).build();
 	}
 
 	@Bean
-	public JdbcBatchItemWriter<Model> writer3(DataSource dataSource) {
-		return new JdbcBatchItemWriterBuilder<Model>()
-				.itemSqlParameterSourceProvider(new BeanPropertyItemSqlParameterSourceProvider<>())
-				.sql("INSERT INTO MODELS (model_name, model_from, model_to, model_type) VALUES (:model_name, :model_from, :model_to, :model_type)")
-				.dataSource(dataSource).build();
-	}
-
-	@Bean
-	public JdbcBatchItemWriter<Submodel> writer4(DataSource dataSource) {
-		return new JdbcBatchItemWriterBuilder<Submodel>()
-				.itemSqlParameterSourceProvider(new BeanPropertyItemSqlParameterSourceProvider<>())
-				.sql("INSERT INTO SUBMODELS (submodel_line, submodel_name) VALUES (:submodel_line, :submodel_name)")
-				.dataSource(dataSource).build();
-	}
-
-	@Bean
-	public Step step1(JdbcBatchItemWriter<Wheel> writer) {
-		return stepBuilderFactory.get("step1").<Wheel, Wheel>chunk(10).reader(reader()).writer(writer).build();
-	}
-
-	@Bean
-	public Step step2(JdbcBatchItemWriter<Engine> writer2) {
-		return stepBuilderFactory.get("step2").<Engine, Engine>chunk(10).reader(reader2()).writer(writer2).build();
-	}
-
-	@Bean
-	public Step step3(JdbcBatchItemWriter<Model> writer3) {
-		return stepBuilderFactory.get("step3").<Model, Model>chunk(10).reader(reader3()).writer(writer3).build();
-	}
-
-	@Bean
-	public Step step4(JdbcBatchItemWriter<Submodel> writer4) {
-		return stepBuilderFactory.get("step4").<Submodel, Submodel>chunk(10).reader(reader4()).writer(writer4).build();
-	}
-
-	@Bean
-	public Job importWheelJob(JobListener listener, Step step1, Step step2, Step step3, Step step4) {
+	public Job importCarsModelsJob(JobListener listener, Step step1) {
 		return jobBuilderFactory.get("importCarsModelsJob").incrementer(new RunIdIncrementer()).listener(listener)
-				.flow(step1).next(step2).next(step3).next(step4).end().build();
+				.flow(step1).end().build();
 	}
 }

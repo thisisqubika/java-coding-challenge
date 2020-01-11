@@ -1,5 +1,6 @@
 package com.mooveit.cars.domain;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -11,38 +12,39 @@ import javax.persistence.OneToOne;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-
 @XmlRootElement(name = "SUBMODELS")
 @XmlAccessorType(XmlAccessType.FIELD)
 @Entity(name = "SUBMODELS")
-@JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class Submodel {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long submodel_id;
-	
+
 	@XmlAttribute(name = "name")
 	private String submodel_name;
-	
+
 	@XmlAttribute(name = "line")
 	private String submodel_line;
-	
-	@ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "model_id")
+
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY/* , optional = false */)
+	@JoinColumn(name = "model_id")
 	@JsonIgnore
-    private Model model_id;
-	
-	@OneToOne
+	private Model model_id;
+
+	@OneToOne(cascade = CascadeType.ALL/* , optional = false */)
 	@JoinColumn(name = "wheel_id")
 	private Wheel wheel;
-	
-	@OneToOne
+
+	@XmlElement(name = "ENGINE")
+	@OneToOne(cascade = CascadeType.ALL/* , optional = false */)
 	@JoinColumn(name = "engine_id")
 	private Engine engine;
 
