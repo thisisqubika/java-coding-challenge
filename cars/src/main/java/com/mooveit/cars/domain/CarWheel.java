@@ -37,7 +37,7 @@ public class CarWheel implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	@Column(name = "ID")
-	private int id;
+	private Integer id;
 
 	@XmlAttribute
 	@Column(name = "SIZE")

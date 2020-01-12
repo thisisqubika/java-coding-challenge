@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 public class CarModelDTO {
 
-	private boolean success;
+	private Boolean success=false;
 
 	private String message;
 

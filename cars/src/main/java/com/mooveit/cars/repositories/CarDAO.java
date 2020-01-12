@@ -16,5 +16,5 @@ public interface CarDAO extends JpaRepository<CarModel, Integer> {
 
 	public CarModel save(CarModel car);
 
-	public void deleteById(int id);
+	public void deleteById(String id);
 }

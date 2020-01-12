@@ -37,11 +37,11 @@ public class CarEngine implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	@Column(name = "ID")
-	private int id;
+	private Integer id;
 
 	@XmlAttribute
 	@Column(name = "POWER")
-	private int power;
+	private Integer power;
 
 	@XmlAttribute
 	@Column(name = "TYPE_CAR")

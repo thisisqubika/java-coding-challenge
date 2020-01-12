@@ -1,9 +1,15 @@
 package com.mooveit.cars.controller;
 
+import java.lang.reflect.MalformedParametersException;
+import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.NoResultException;
+import javax.xml.bind.JAXBException;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.MimeTypeUtils;
@@ -17,8 +23,11 @@ import com.mooveit.cars.domain.CarModel;
 import com.mooveit.cars.dto.CarModelDTO;
 import com.mooveit.cars.service.CarServices;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/carsServices")
 public class CarsRestController {
 
 	@Autowired
@@ -26,76 +35,40 @@ public class CarsRestController {
 
 	@RequestMapping(value = "cars", method = RequestMethod.GET, produces = {
 			MimeTypeUtils.APPLICATION_JSON_VALUE }, headers = "Accept=application/json")
-	public ResponseEntity<CarModelDTO> findAll() {
-		CarModelDTO dto = new CarModelDTO();
-		try {
-			Iterable<CarModel> cars = carService.findAll();
-			if (cars == null) {
-				dto.setSuccess(false);
-				dto.setMessage("NO FOUND CARS");
-				dto.setCars(null);
-			} else {
-				dto.setSuccess(true);
-				dto.setMessage("OK");
-				dto.setCars(cars);
-			}
-			return new ResponseEntity<CarModelDTO>(dto, HttpStatus.OK);
-		} catch (Exception e) {
-			return new ResponseEntity<CarModelDTO>(dto, HttpStatus.NOT_FOUND);
-		}
+	public ResponseEntity<CarModelDTO> findAllCars() {
+		return carService.findAllCars();
 	}
 
 	@RequestMapping(value = "carId", method = RequestMethod.GET, produces = {
 			MimeTypeUtils.APPLICATION_JSON_VALUE }, headers = "Accept=application/json", params = { "carId" })
-	public ResponseEntity<CarModelDTO> getCar(@RequestParam(value = "carId") int carId) {
-		CarModelDTO dto = new CarModelDTO();
-		List<CarModel> list = new ArrayList<CarModel>();
-		try {
-			CarModel car = carService.findById(carId);
-			if (car == null) {
-				dto.setSuccess(false);
-				dto.setMessage("NO FOUND CARS");
-				dto.setCars(null);
-			} else {
-				list.add(car);
-				dto.setSuccess(true);
-				dto.setMessage("OK");
-				dto.setCars(list);
-			}
-			return new ResponseEntity<CarModelDTO>(dto, HttpStatus.OK);
-		} catch (Exception e) {
-			return new ResponseEntity<CarModelDTO>(dto, HttpStatus.NOT_FOUND);
-		}
+	public ResponseEntity<CarModelDTO> getCarById(@RequestParam(value = "carId") int carId) {
+		return carService.findCarById(carId);
 	}
 
-	@RequestMapping(value = "createXmlCars", method = RequestMethod.POST,  consumes = "text/xml")
-	public ResponseEntity<String> createXMLModel(@RequestBody String xml) {
-		try {
-			carService.createXMLModel(xml);
-			return new ResponseEntity<String>("OK", HttpStatus.OK);
-		} catch (Exception e) {
-			return new ResponseEntity<String>("ERROR" + e.getMessage(), HttpStatus.NOT_FOUND);
-		}
+	@RequestMapping(value = "createXmlCars", method = RequestMethod.POST, consumes = "text/xml")
+	public ResponseEntity<String> createXMLCarModel(@RequestBody String xml) {
+		return carService.createXMLCarModel(xml);
 	}
 
 	@RequestMapping(value = "carsBrand", method = RequestMethod.GET, produces = {
 			MimeTypeUtils.APPLICATION_JSON_VALUE }, headers = "Accept=application/json", params = { "brand" })
-	public ResponseEntity<CarModelDTO> findByBrand(@RequestParam(value = "brand") String brand) {
-		CarModelDTO dto = new CarModelDTO();
+	public ResponseEntity<CarModelDTO> findCarsByBrand(@RequestParam(value = "brand") String brand) {
+		return carService.findCarsByBrand(brand);
+	}
+
+	@RequestMapping(value = "isAlive", method = RequestMethod.GET)
+	public ResponseEntity<String> isAlive() {
 		try {
-			List<CarModel> cars = carService.findByBrand(brand);
-			if (cars == null) {
-				dto.setSuccess(false);
-				dto.setMessage("NO FOUND CARS");
-				dto.setCars(null);
-			} else {
-				dto.setSuccess(true);
-				dto.setMessage("OK");
-				dto.setCars(cars);
-			}
-			return new ResponseEntity<CarModelDTO>(dto, HttpStatus.OK);
+			return new ResponseEntity<String>("Is Alive", HttpStatus.OK);
 		} catch (Exception e) {
-			return new ResponseEntity<CarModelDTO>(dto, HttpStatus.NOT_FOUND);
+			log.error(e.getMessage());
+			return new ResponseEntity<String>("ERROR: " + e.getMessage(), HttpStatus.NOT_FOUND);
 		}
 	}
+
+	@RequestMapping(value = "deleteCarById", method = RequestMethod.DELETE,params = { "id" } )
+	public ResponseEntity<String> deleteCarById(@RequestParam(value = "id") int id) {
+		return carService.deleteCarById(id);
+	}
+
 }

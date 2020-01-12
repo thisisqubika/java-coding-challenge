@@ -25,12 +25,11 @@ public class FordIngesterTask {
 			InputStream inputStream = getClass().getClassLoader().getResourceAsStream("ford-example.xml");
 
 			if (inputStream != null) {
-				service.createXMLModel(CarUtility.toString(inputStream));
+				service.createXMLCarModel(CarUtility.InputStreamToString(inputStream));
 			}
 
 		} catch (Exception e) {
 			log.error(e.getMessage());
 		}
-		// log.warn("Not implemented yet.");
 	}
 }

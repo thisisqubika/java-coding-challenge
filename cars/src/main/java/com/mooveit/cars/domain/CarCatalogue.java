@@ -12,17 +12,23 @@ import javax.xml.bind.annotation.XmlRootElement;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter
-@Setter
-@XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "CATALOGUE")
-public class CarCatalogue implements Serializable {
+public class CarCatalogue  implements Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	@XmlElement(name = "MODEL")
+	
+	
 	private List<CarModel> models = new ArrayList<CarModel>();
+	
+	@XmlElement(name = "MODEL")
+	public List<CarModel> getModels() {
+		return models;
+	}
+	public void setModels(List<CarModel> models) {
+		this.models = models;
+	}
 
 }
