@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mooveit.cars.domain.Submodel;
+import com.mooveit.cars.exceptions.ItemNotFoundException;
 import com.mooveit.cars.repositories.SubmodelRepository;
 
 @RestController
@@ -26,12 +27,12 @@ public class SubmodelsController {
 	@GetMapping
 	@RequestMapping("{id}")
 	public Submodel get(@PathVariable Long id) {
-		return submodelRepository.getOne(id);
+		return submodelRepository.findById(id).orElseThrow(() -> new ItemNotFoundException(id));
 	}
 	
 	@GetMapping
 	@RequestMapping("/brand/{name}")
 	public List<Submodel> getBrand(@PathVariable String name) {
-		return submodelRepository.getCarSpecificationByBrand(name.toLowerCase());
+		return submodelRepository.getCarSpecificationByBrand(name.toLowerCase()).orElseThrow(() -> new ItemNotFoundException(name));
 	}
 }

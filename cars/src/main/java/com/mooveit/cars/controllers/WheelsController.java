@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mooveit.cars.domain.Wheel;
+import com.mooveit.cars.exceptions.ItemNotFoundException;
 import com.mooveit.cars.repositories.WheelRepository;
 
 @RestController
@@ -28,7 +29,7 @@ public class WheelsController {
 	@GetMapping
 	@RequestMapping("{id}")
 	public Wheel get(@PathVariable Long id) {
-		return wheelRepository.getOne(id);
+		return wheelRepository.findById(id).orElseThrow(() -> new ItemNotFoundException(id));
 	}
 
 	@PostMapping

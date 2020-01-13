@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mooveit.cars.domain.Model;
+import com.mooveit.cars.exceptions.ItemNotFoundException;
 import com.mooveit.cars.repositories.ModelRepository;
 
 @RestController
@@ -28,13 +29,13 @@ public class ModelsController {
 	@GetMapping
 	@RequestMapping("{id}")
 	public Model get(@PathVariable Long id) {
-		return modelRepository.getOne(id);
+		return modelRepository.findById(id).orElseThrow(() -> new ItemNotFoundException(id));
 	}
 
 	@GetMapping
 	@RequestMapping("/brand/{model_name}")
 	public List<Model> getBrand(@PathVariable String model_name) {
-		return modelRepository.getCarSpecificationByBrand(model_name.toLowerCase());
+		return modelRepository.getCarSpecificationByBrand(model_name.toLowerCase()).orElseThrow(() -> new ItemNotFoundException(model_name));
 	}
 
 	@PostMapping

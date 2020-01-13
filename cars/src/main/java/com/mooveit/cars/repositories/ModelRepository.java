@@ -2,6 +2,7 @@ package com.mooveit.cars.repositories;
 
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -17,6 +18,6 @@ public interface ModelRepository extends JpaRepository<Model, Long>  {
 			+ "WHERE LOWER(M.model_name) like %:model_name%",
             nativeQuery = true
     )
-    List<Model> getCarSpecificationByBrand(@Param("model_name") String model_name);
+	Optional<List<Model>> getCarSpecificationByBrand(@Param("model_name") String model_name);
 
 }

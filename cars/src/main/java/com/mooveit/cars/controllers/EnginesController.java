@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mooveit.cars.domain.Engine;
+import com.mooveit.cars.exceptions.ItemNotFoundException;
 import com.mooveit.cars.repositories.EngineRepository;
 
 
@@ -29,7 +30,7 @@ public class EnginesController {
 	@GetMapping
 	@RequestMapping("{id}")
 	public Engine get(@PathVariable Long id) {
-		return engineRepository.getOne(id);
+		return engineRepository.findById(id).orElseThrow(() -> new ItemNotFoundException(id));
 	}
 
 	@PostMapping
