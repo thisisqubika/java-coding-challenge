@@ -5,6 +5,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -12,9 +13,11 @@ import org.springframework.batch.core.Job;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.boot.test.context.SpringBootTest;
-
+import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import com.mooveit.cars.controllers.EnginesController;
 import com.mooveit.cars.controllers.ModelsController;
@@ -34,6 +37,7 @@ import org.springframework.web.context.WebApplicationContext;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -73,6 +77,18 @@ public class CarsApplicationTests {
 	private WebApplicationContext wac;
 
 	private MockMvc mockMvc;
+
+	@Test
+	public void xmlFile() {
+		ClassPathResource resource = new ClassPathResource("ford-example.xml");
+		try {
+			assertTrue(resource.contentLength() > 0);
+			assertTrue(resource.getFile().exists());
+			assertTrue(resource.getFile().canRead());
+		} catch (IOException e) {
+			fail(e.toString());
+		}
+	}
 
 	@Test
 	public void job() {
@@ -186,7 +202,6 @@ public class CarsApplicationTests {
 		}
 	}
 
-
 	@Test
 	public void getModelCarSpecificationByBrand() {
 		Optional<List<Model>> model = modelRepository.getCarSpecificationByBrand("ford");
@@ -196,7 +211,7 @@ public class CarsApplicationTests {
 			fail(e.toString());
 		}
 	}
-	
+
 	@Test
 	public void getSubModelCarSpecificationByBrand() {
 		Optional<List<Submodel>> submodel = submodelRepository.getCarSpecificationByBrand("aspire");
@@ -205,16 +220,37 @@ public class CarsApplicationTests {
 		} catch (Exception e) {
 			fail(e.toString());
 		}
-	}	
+	}
 
-	/*@Test
-	public void testModelEndpointIsOK() throws Exception {
-		this.mockMvc.perform(get("/api/v1/models")).andExpect(status().isOk());
+	@Before
+	public void setup() {
+		this.mockMvc = MockMvcBuilders.webAppContextSetup(this.wac).build();
 	}
 
 	@Test
-	public void shouldReturnDefaultMessage() throws Exception {
-		this.mockMvc.perform(get("api/v1/models")).andExpect(status().isOk());
-	}*/
+	public void testModelEndpointIsOK() throws Exception {
+		this.mockMvc.perform(get("/api/v1/models")).andExpect(status().isOk());
+		this.mockMvc.perform(get("/api/v1/models/brand/ford")).andExpect(status().isOk());
+		this.mockMvc.perform(get("/api/v1/models/1")).andExpect(status().isOk());
+	}
+
+	@Test
+	public void testSubModelEndpointIsOK() throws Exception {
+		this.mockMvc.perform(get("/api/v1/submodels")).andExpect(status().isOk());
+		this.mockMvc.perform(get("/api/v1/submodels/brand/aspire")).andExpect(status().isOk());
+		this.mockMvc.perform(get("/api/v1/submodels/1")).andExpect(status().isOk());
+	}
+
+	@Test
+	public void testWheelEndpointIsOK() throws Exception {
+		this.mockMvc.perform(get("/api/v1/wheels")).andExpect(status().isOk());
+		this.mockMvc.perform(get("/api/v1/wheels/1")).andExpect(status().isOk());
+	}
+
+	@Test
+	public void testEngineEndpointIsOK() throws Exception {
+		this.mockMvc.perform(get("/api/v1/engines")).andExpect(status().isOk());
+		this.mockMvc.perform(get("/api/v1/engines/1")).andExpect(status().isOk());
+	}
 
 }
