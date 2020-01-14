@@ -15,5 +15,4 @@ In the Job you must create a processor to transform the base64 data to an array 
 
 Then you must create a controller that handles requests related to uploading images or files and making the respective query.
 ## E - Improvements
-This code can be improved by having the reading part of the xml file done in one step, that is, reading and mapping all the objects at the same time and writing to the database in the same step.
-Additionally, the application is currently insecure, so it would be a good idea to implement a security layer by adding authentication and authorization. This is usually done by presenting a login screen.
+The application is currently insecure, so it would be a good idea to implement a security layer by adding authentication and authorization. This is usually done by presenting a login screen.
