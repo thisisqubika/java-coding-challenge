@@ -8,18 +8,10 @@ import static org.junit.Assert.fail;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.skyscreamer.jsonassert.JSONAssert;
 import org.springframework.batch.core.Job;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.core.io.ClassPathResource;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -257,17 +249,4 @@ public class CarsApplicationTests {
 		this.mockMvc.perform(get("/api/v1/engines")).andExpect(status().isOk());
 		this.mockMvc.perform(get("/api/v1/engines/1")).andExpect(status().isOk());
 	}
-
-	/*TestRestTemplate restTemplate = new TestRestTemplate();
-	HttpHeaders headers = new HttpHeaders();
-
-	@Test
-	public void testRetrieveWheel() throws Exception {
-		HttpEntity<String> entity = new HttpEntity<String>(null, headers);
-		ResponseEntity<String> response = restTemplate.exchange("http://localhost:8080/api/v1/wheels/1", HttpMethod.GET, entity,
-				String.class);
-		String expected = "{\"wheel_size\":R15,\"wheel_type\":\"STEEL\",\"id\":\"1\"}";
-		JSONAssert.assertEquals(expected, response.getBody(), false);
-	}*/
-
 }
