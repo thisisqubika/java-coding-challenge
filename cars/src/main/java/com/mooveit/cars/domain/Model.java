@@ -2,6 +2,7 @@ package com.mooveit.cars.domain;
 
 import java.util.*;
 import javax.persistence.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 @Entity
@@ -34,6 +35,7 @@ public class Model {
 	@NonNull
 	private Wheels wheels;
 	
+	@JsonIgnore
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "parentModel")
 	private Set<Model> subModels = new HashSet<>();
 	

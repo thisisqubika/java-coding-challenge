@@ -26,6 +26,8 @@ public class HandlerXMLFord extends DefaultHandler {
 	private Wheels wheels;
 	private Brand brand;
 	
+	private static final String FORD_NAME = "ford";
+	
 	private Deque<Model> lstModelsQueue = new LinkedList<>();
 
 	public HandlerXMLFord(BrandRepositoryI brandRepository, 
@@ -37,9 +39,9 @@ public class HandlerXMLFord extends DefaultHandler {
 		this.wheelsRepository = wheelsRepository;
 		this.modelRepository = modelRepository;
 		
-		brand = brandRepository.getByName("Ford");			
+		brand = brandRepository.getByName(FORD_NAME);			
 		if (brand == null) {
-			brand = brandRepository.save(new Brand("Ford"));
+			brand = brandRepository.save(new Brand(FORD_NAME));
 		}
 		
 	}
