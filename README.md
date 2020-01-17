@@ -1,4 +1,4 @@
-# Java Coding Challenge
+﻿# Java Coding Challenge
 The goal of this challenge is to give you an opportunity to show us what you know and how you would work in a real life project.
 
 ## General aspects
@@ -10,7 +10,7 @@ In order to be practical, we ask you to make one commit per challenge part and u
 - Be sure to always include your code and also the written answers/explanations in the `ANSWERS.md` file within the same commit if they belongs to the same challenge part. 
 - To simplify things we added some necessary assets and configuration needed in `src/main/resources` folder.
 
-> After cloning the repository, you should be ready to start up the cars application at port `8080` with the command `mvn springboot:run`
+> After cloning the repository, you should be ready to start up the cars application at port `8080` with the command `mvn spring-boot:run`
 
 ### The application technology
 Here is the list of the technologies we are providing in the application structure: 

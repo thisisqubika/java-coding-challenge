@@ -19,6 +19,17 @@ And some unit test's:
 
 The only special thing to say is that I needed to put **@JsonIgnore** annotation over the subModels element on **Models** Entity to prevent cyclic situation on RESTFUL output.
 
+Test URL's:
+
+* Get a car specification by id
+
+<a href="http://127.0.0.1:8080/models/2" target="_blank">http://127.0.0.1:8080/models/2</a>
+
+* Get all the car specifications by brand
+ 
+<a href="http://127.0.0.1:8080/models?brandname=ford" target="_blank">http://127.0.0.1:8080/models?brandname=ford</a>
+
+ 
 ## D - Adding images
 
 Add the following into the Model Entity:
