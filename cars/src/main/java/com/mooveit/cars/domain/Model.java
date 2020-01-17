@@ -27,6 +27,9 @@ public class Model {
 	private String fromYear;
 	private String toYear;
 	
+	@Lob
+	private byte[] photo;
+	
 	@ManyToOne
 	@NonNull
 	private Engine engine;
