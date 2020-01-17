@@ -51,4 +51,5 @@ That's all.
 
 ## E - Improvements
 
-Well I really don't have any ideas to improve. Sorry.
+This morning I wake up thinking about improvements, reviewing the code I find 'Hard Code'. For example the xml with the Ford models description. This must go out of the code. An alternative can be send that to a .properties file or better, to a configurable DB table.
+
