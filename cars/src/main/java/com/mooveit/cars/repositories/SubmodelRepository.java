@@ -18,5 +18,12 @@ public interface SubmodelRepository extends JpaRepository<Submodel, Long>{
             nativeQuery = true
     )
 	Optional<List<Submodel>> getCarSpecificationByBrand(@Param("name") String name);
+	
+	@Query(value = "SELECT S.* "
+			+ "FROM SUBMODELS AS S "
+			+ "WHERE S.submodel_id = :id",
+            nativeQuery = true
+    )
+	Optional<List<Submodel>> getById(@Param("id") Long id);
 
 }

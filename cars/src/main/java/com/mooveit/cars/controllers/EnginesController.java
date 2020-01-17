@@ -29,8 +29,8 @@ public class EnginesController {
 
 	@GetMapping
 	@RequestMapping("{id}")
-	public Engine get(@PathVariable Long id) {
-		return engineRepository.findById(id).orElseThrow(() -> new ItemNotFoundException(id));
+	public List<Engine> get(@PathVariable Long id) {
+		return engineRepository.getById(id).orElseThrow(() -> new ItemNotFoundException(id));
 	}
 
 	@PostMapping

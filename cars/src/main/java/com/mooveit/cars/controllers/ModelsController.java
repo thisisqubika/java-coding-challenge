@@ -28,8 +28,8 @@ public class ModelsController {
 
 	@GetMapping
 	@RequestMapping("{id}")
-	public Model get(@PathVariable Long id) {
-		return modelRepository.findById(id).orElseThrow(() -> new ItemNotFoundException(id));
+	public List<Model> get(@PathVariable Long id) {
+		return modelRepository.getById(id).orElseThrow(() -> new ItemNotFoundException(id));
 	}
 
 	@GetMapping

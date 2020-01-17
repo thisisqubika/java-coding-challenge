@@ -20,4 +20,11 @@ public interface ModelRepository extends JpaRepository<Model, Long>  {
     )
 	Optional<List<Model>> getCarSpecificationByBrand(@Param("model_name") String model_name);
 
+	
+	@Query(value = "SELECT M.* "
+			+ "FROM MODELS AS M "
+			+ "WHERE M.model_id = :id",
+            nativeQuery = true
+    )
+	Optional<List<Model>> getById(@Param("id") Long id);
 }

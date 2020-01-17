@@ -28,8 +28,8 @@ public class WheelsController {
 
 	@GetMapping
 	@RequestMapping("{id}")
-	public Wheel get(@PathVariable Long id) {
-		return wheelRepository.findById(id).orElseThrow(() -> new ItemNotFoundException(id));
+	public List<Wheel> get(@PathVariable Long id) {
+		return wheelRepository.getById(id).orElseThrow(() -> new ItemNotFoundException(id));
 	}
 
 	@PostMapping

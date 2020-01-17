@@ -26,8 +26,8 @@ public class SubmodelsController {
 	
 	@GetMapping
 	@RequestMapping("{id}")
-	public Submodel get(@PathVariable Long id) {
-		return submodelRepository.findById(id).orElseThrow(() -> new ItemNotFoundException(id));
+	public List<Submodel> get(@PathVariable Long id) {
+		return submodelRepository.getById(id).orElseThrow(() -> new ItemNotFoundException(id));
 	}
 	
 	@GetMapping
