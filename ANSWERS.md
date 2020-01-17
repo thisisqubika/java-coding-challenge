@@ -40,3 +40,4 @@ That's all.
 
 ## E - Improvements
 
+Well I really don't have any ideas to improve. Sorry.
