@@ -40,9 +40,9 @@ public class CarsApplicationTests {
   @Autowired
   private DatabaseLoad databaseLoad;
   
-//	@Test
-//  public void contextLoads() {  
-//  }
+  @Test
+  public void contextLoads() {  
+  }
   	
 	@Test
 	public void testLoadingFord() {
