@@ -1,6 +1,15 @@
 package com.mooveit.cars.utils;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.*;
+
+import org.apache.commons.io.FileUtils;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
+
+import java.util.zip.Adler32;
+import java.util.zip.Checksum;
 
 import org.xml.sax.*;
 import org.xml.sax.helpers.DefaultHandler;
@@ -29,6 +38,8 @@ public class HandlerXMLFord extends DefaultHandler {
 	private static final String FORD_NAME = "ford";
 	
 	private Deque<Model> lstModelsQueue = new LinkedList<>();
+
+	private Checksum checksum = new Adler32();
 
 	public HandlerXMLFord(BrandRepositoryI brandRepository, 
 												EngineRepositoryI engineRepository,
@@ -89,10 +100,39 @@ public class HandlerXMLFord extends DefaultHandler {
 	}
 	
 	@Override
-  public void endElement(String uri, String localName, String qName) throws SAXException {
+  public void endElement(String uri, String localName, String qName) throws SAXException {		
 		
 		if (qName.equalsIgnoreCase("MODEL")) {
 			
+			/*
+			 * Load photo file
+			 */
+			
+			Resource resource = new ClassPathResource(model.getName() + ".jpeg");
+			
+			try {
+
+				File file = resource.getFile();
+				byte[] fileContent = FileUtils.readFileToByteArray(file);
+
+				checksum.update(fileContent, 0, fileContent.length);
+				long photoChecksum = checksum.getValue();
+
+				if (photoChecksum != model.getPhotoChecksum()) {
+
+					model.setPhoto(fileContent);
+					model.setPhotoChecksum(photoChecksum);
+
+				}
+
+			} catch (IOException e) {
+
+				log.debug("photo do not exists:{}", model.getName() + ".jpg");
+				model.setPhoto(null);
+				model.setPhotoChecksum(0);
+
+			}
+
 			log.debug("endElement.Model({})", model.getName());
 			model = modelRepository.save(model);
 			parentModel = lstModelsQueue.peekLast();

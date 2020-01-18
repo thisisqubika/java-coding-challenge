@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 @Entity
-@Getter @Setter @RequiredArgsConstructor @ToString @NoArgsConstructor
+@Getter @Setter @RequiredArgsConstructor @NoArgsConstructor @ToString
 @Table(uniqueConstraints = @UniqueConstraint(name = "UN_MODEL_NAME", columnNames = {"name"}))
 public class Model {
 	
@@ -26,9 +26,12 @@ public class Model {
 	private String line;
 	private String fromYear;
 	private String toYear;
-	
-	@Lob
+		
+	@Lob @ToString.Exclude
 	private byte[] photo;
+
+	@JsonIgnore
+	private long photoChecksum = 0;
 	
 	@ManyToOne
 	@NonNull
