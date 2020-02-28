@@ -9,7 +9,7 @@ When the system read an archive, the system replace all the old models and submo
 The system doesn't erase engines neither wheels because they have standard values and several models and submodels can to use the same values, the system expects several catalogue files not only ford.
 In each submodel when the submodel doesn't have "form" or "to", the system takes those values from the principal model.
 ## C - Expose data with a RESTful API
-
+The system exposes the specification from models and submodels. All of them are valid specifications
 ## D - Adding images
 
 ## E - Improvements

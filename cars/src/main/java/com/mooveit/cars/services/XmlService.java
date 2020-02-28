@@ -298,7 +298,7 @@ public class XmlService {
             File file = Paths.get("src\\main\\resources\\ford-example.xml")
                     .toFile();
             XmlCatalogue xmlCatalogue = (XmlCatalogue) unmarshaller.unmarshal(file);
-            xmlCatalogue.setName(file.getName());
+            xmlCatalogue.setName(file.getName().split("\\.")[0]);
             //System.out.println(xmlCatalogue);
             return xmlCatalogue;
         } catch ( JAXBException ex) {
