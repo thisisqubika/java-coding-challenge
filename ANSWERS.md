@@ -11,5 +11,5 @@ In each submodel when the submodel doesn't have "form" or "to", the system takes
 ## C - Expose data with a RESTful API
 The system exposes the specification from models and submodels. All of them are valid specifications
 ## D - Adding images
-
+For upload images the system can use multipart form spring, and save them as files or blobs in DB, and for download the system can to serve them as file or as byte array
 ## E - Improvements
