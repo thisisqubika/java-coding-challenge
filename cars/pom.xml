@@ -17,6 +17,7 @@
 
     <properties>
         <java.version>1.8</java.version>
+        <diffChangeLogFile>src/main/resources/db/changelog/db.changelog-master.yaml</diffChangeLogFile>
     </properties>
 
     <dependencies>
@@ -49,6 +50,16 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+
+        <dependency>
+        	<groupId>org.liquibase</groupId>
+        	<artifactId>liquibase-core</artifactId>
+        </dependency>
+        <dependency>
+        	<groupId>org.springframework.boot</groupId>
+        	<artifactId>spring-boot-devtools</artifactId>
+        	<optional>true</optional>
+        </dependency>
     </dependencies>
 
     <build>
@@ -56,6 +67,26 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+            	<groupId>org.liquibase</groupId>
+            	<artifactId>liquibase-maven-plugin</artifactId>
+            	<configuration>	
+            		<diffChangeLogFile>${diffChangeLogFile}</diffChangeLogFile>
+					<propertyFile>src/main/resources/liquibase.properties</propertyFile>	
+            	</configuration>
+            	<dependencies>
+            		<dependency>
+						<groupId>org.liquibase.ext</groupId>
+						<artifactId>liquibase-hibernate5</artifactId>
+						<version>3.6</version>
+					</dependency>
+					<dependency>
+						<groupId>javax.validation</groupId>
+						<artifactId>validation-api</artifactId>
+						<version>2.0.1.Final</version>
+					</dependency>
+            	</dependencies>
             </plugin>
         </plugins>
     </build>

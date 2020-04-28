@@ -1,0 +1,3 @@
+databaseChangeLog:
+  - include:
+      file: classpath*:db/changelog/changes/cars1-test.yaml

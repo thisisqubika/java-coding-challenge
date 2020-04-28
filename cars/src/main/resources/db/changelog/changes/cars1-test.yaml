@@ -1,0 +1,174 @@
+databaseChangeLog:
+-  changeSet:
+      id: 1-1
+      author: mitzyvo
+      changes:
+      -  createTable:
+            columns:
+            -  column:
+                  constraints:
+                     primaryKey: true
+                     primaryKeyName: brand_id_pk
+                  autoIncrement: true
+                  name: id_brand
+                  type: INT
+            -  column:
+                  constraints:
+                     nullable: false
+                  name: name
+                  type: VARCHAR(50)
+            tableName: brand
+      -  createTable:
+            columns:
+            -  column:
+                  autoIncrement: true
+                  constraints:
+                     primaryKey: true
+                     primaryKeyName: engine_id_pk
+                  name: id_engine
+                  type: INT
+            -  column:
+                  constraints:
+                     nullable: false
+                  name: power
+                  type: INT
+            -  column:
+                  constraints:
+                     nullable: false
+                  name: type
+                  type: VARCHAR(50)
+            tableName: engine      
+      -  createTable:
+            columns:
+            -  column:
+                  autoIncrement: true
+                  constraints:
+                     primaryKey: true
+                     primaryKeyName: wheel_id_pk
+                  name: id_wheel
+                  type: INT
+            -  column:
+                  constraints:
+                     nullable: false
+                  name: size
+                  type: VARCHAR(10)
+            -  column:
+                  constraints:
+                     nullable: false
+                  name: type
+                  type: VARCHAR(50)
+            tableName: wheel      
+      -  createTable:
+            columns:
+            -  column:
+                  autoIncrement: true
+                  constraints:
+                     primaryKey: true
+                     primaryKeyName: model_id_pk
+                  name: id_model
+                  type: INT
+            -  column:
+                  constraints:
+                     nullable: false
+                  name: name
+                  type: VARCHAR(50)
+            -  column:
+                  name: line
+                  type: VARCHAR(50)
+            -  column:
+                  constraints:
+                     nullable: false
+                  name: from_year
+                  type: VARCHAR(4)
+            -  column:
+                  name: to_year
+                  type: VARCHAR(4)
+            -  column:
+                  name: active
+                  type: BOOLEAN
+                  defaultValueBoolean: true
+            -  column:
+                  constraints:
+                     nullable: false
+                     foreignKeyName: fk_model_brand
+                     referencedTableName: brand
+                     referencedColumnNames: id_brand
+                     validateForeignKey: true
+                  name: brand
+                  type: INT
+            -  column:
+                  constraints:
+                     nullable: false
+                     foreignKeyName: fk_model_engine
+                     referencedTableName: engine
+                     referencedColumnNames: id_engine
+                     validateForeignKey: true
+                  name: engine
+                  type: INT
+            -  column:
+                  constraints:
+                     nullable: false
+                     foreignKeyName: fk_model_wheel
+                     referencedTableName: wheel
+                     referencedColumnNames: id_wheel
+                     validateForeignKey: true
+                  name: wheel
+                  type: INT
+            tableName: model
+      -  createTable:
+            columns:
+            -  column:
+                  autoIncrement: true
+                  constraints:
+                     primaryKey: true
+                     primaryKeyName: sub_model_id_pk
+                  name: id_model
+                  type: INT
+            -  column:
+                  constraints:
+                     nullable: false
+                  name: name
+                  type: VARCHAR(50)
+            -  column:
+                  name: line
+                  type: VARCHAR(50)
+            -  column:
+                  constraints:
+                     nullable: false
+                  name: from_year
+                  type: VARCHAR(4)
+            -  column:
+                  name: to_year
+                  type: VARCHAR(4)
+            -  column:
+                  name: active
+                  type: BOOLEAN
+                  defaultValueBoolean: true
+            -  column:
+                  constraints:
+                     nullable: false
+                     foreignKeyName: fk_sub_model_model
+                     referencedTableName: model
+                     referencedColumnNames: id_model
+                     validateForeignKey: true
+                  name: model
+                  type: INT
+            -  column:
+                  constraints:
+                     nullable: false
+                     foreignKeyName: fk_sub_model_engine
+                     referencedTableName: engine
+                     referencedColumnNames: id_engine
+                     validateForeignKey: true
+                  name: engine
+                  type: INT
+            -  column:
+                  constraints:
+                     nullable: false
+                     foreignKeyName: fk_sub_model_wheel
+                     referencedTableName: wheel
+                     referencedColumnNames: id_wheel
+                     validateForeignKey: true
+                  name: wheel
+                  type: INT
+            tableName: sub_model
