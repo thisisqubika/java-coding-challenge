@@ -1,5 +1,6 @@
 package com.mooveit.cars.domain;
 
+import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -26,6 +27,7 @@ public class BaseModel {
 
 	private String toYear;
 	
+	@Column(columnDefinition = "boolean default true")
 	private boolean active;
 
 	@ManyToOne

@@ -7,6 +7,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -18,10 +21,12 @@ import lombok.NonNull;
 @Entity
 public class Model extends BaseModel{
 
+	@JsonManagedReference
 	@ManyToOne
     @JoinColumn (name = "brand")
 	private @NonNull Brand brand;
 	private @NonNull String type;
+	@JsonBackReference
 	@OneToMany
 	private Set<SubModel> subModels;
 }

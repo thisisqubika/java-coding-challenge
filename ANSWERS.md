@@ -9,6 +9,7 @@ based on the XML file.
 - Add the util class JacksonXmlDataConvert to convert XML file data to DTOs
 
 ## C - Expose data with a RESTful API
+- Added Jackson annotation to support bidirectional relationships and get the entity as a json object
 
 ## D - Adding images
 
