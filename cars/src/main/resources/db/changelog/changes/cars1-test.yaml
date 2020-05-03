@@ -37,7 +37,7 @@ databaseChangeLog:
                      nullable: false
                   name: type
                   type: VARCHAR(50)
-            tableName: engine      
+            tableName: engine
       -  createTable:
             columns:
             -  column:
@@ -57,7 +57,7 @@ databaseChangeLog:
                      nullable: false
                   name: type
                   type: VARCHAR(50)
-            tableName: wheel      
+            tableName: wheel
       -  createTable:
             columns:
             -  column:
@@ -73,7 +73,7 @@ databaseChangeLog:
                   name: name
                   type: VARCHAR(50)
             -  column:
-                  name: line
+                  name: type
                   type: VARCHAR(50)
             -  column:
                   constraints:
@@ -133,8 +133,6 @@ databaseChangeLog:
                   name: line
                   type: VARCHAR(50)
             -  column:
-                  constraints:
-                     nullable: false
                   name: from_year
                   type: VARCHAR(4)
             -  column:
@@ -172,3 +170,21 @@ databaseChangeLog:
                   name: wheel
                   type: INT
             tableName: sub_model
+-  changeSet:
+      id: 1-2
+      author: mitzyvo   
+      changes:         
+      - loadData:
+            columns:
+               - column:
+                   name: name
+                   type: STRING
+            commentLineStartsWith: A String
+            encoding: UTF-8
+            file: csv/brands.csv
+            quotchar: ''''
+            relativeToChangelogFile: false
+            separator: ','
+            tableName: brand
+            usePreparedStatements: true
+            

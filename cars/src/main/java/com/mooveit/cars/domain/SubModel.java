@@ -6,9 +6,11 @@ import javax.persistence.ManyToOne;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
 @Data
+@NoArgsConstructor
 @EqualsAndHashCode(callSuper=false)
 @Entity
 public class SubModel extends BaseModel {
@@ -17,5 +19,5 @@ public class SubModel extends BaseModel {
     @JoinColumn (name = "model")
 	private @NonNull Model model;
 	
-	
+	private String line;
 }

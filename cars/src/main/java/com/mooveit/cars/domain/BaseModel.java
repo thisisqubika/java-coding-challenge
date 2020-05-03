@@ -1,27 +1,32 @@
 package com.mooveit.cars.domain;
 
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
+@Data
+@NoArgsConstructor
 @MappedSuperclass
 public class BaseModel {
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer idModel;
 
 	private @NonNull String name;
 
-	private String line;
-
 	private String fromYear;
 
 	private String toYear;
+	
+	private boolean active;
 
 	@ManyToOne
     @JoinColumn (name = "wheel")
