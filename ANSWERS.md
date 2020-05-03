@@ -20,3 +20,10 @@ and assign a filename according to a pattern given by the SubModel, like name-li
 like Amazon Simple Storage Service (Amazon S3).   
 
 ## E - Improvements
+- Add some validation for value column as Model.Type where the values are constant.
+- Add other REST services to have CRUDs of the left entities.
+- Add Swagger API for document the REST services.
+- Add a few Views as Welcome Page and other to manage information.
+- Add log configuration to manage the different types to see in console (DEBUG,TRACE, etc).
+- Add profile configuration to handle a Development and Production version for compilation.
+- Add SonarQube configuration to ensure code quality.
