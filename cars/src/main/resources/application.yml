@@ -1,14 +1,64 @@
+spring:
+  profiles.active: dev
+  main.allow-bean-definition-overriding : true
+  
+---
+spring:
+  profiles: dev
+  
+  datasource:
+    url: jdbc:h2:mem:carsdb;DB_CLOSE_ON_EXIT=FALSE
+    driverClassName: org.h2.Driver
+    username: sa
+    password: null
+  
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    properties:
+      hibernate:
+        ddl-auto: create-drop
+        show_sql: false
+        use_sql_comments: false
+        format_sql: false
+  h2:
+    console:
+      enabled: true
+      path: /console
+      settings:
+        trace: false
+        web-allow-others: false
+
 cars:
   ford:
     ingester:
-      runCron: '0 * * ? * *' #each minute
+      runCron: 0 * * * * ?
 
+logging:
+    file: logs/dev_app.log
+    pattern:
+      console: '%d %-5level %logger : %msg%n'
+      file: '%d %-5level [%thread] %logger : %msg%n'
+    level:
+      org.springframework.web: DEBUG
+      guru.springframework.controllers: DEBUG
+      org.hibernate: DEBUG
+   
+---
 spring:
-  datasource:
-    url: jdbc:h2:mem:carsdb
-    driverClassName: org.h2.Driver
-    username: sa
-    password:
-  jpa:
-    database-platform: 'org.hibernate.dialect.H2Dialect'
-  h2.console.enabled: true
+  profiles: prod
+
+cars:
+  ford:
+    ingester:
+      runCron: 0 * * ? * *
+  
+logging:
+    file: logs/dev_app.log
+    pattern:
+      console: '%d %-5level %logger : %msg%n'
+      file: '%d %-5level [%thread] %logger : %msg%n'
+    level:
+      org.springframework.web: WARN
+      guru.springframework.controllers: WARN
+      org.hibernate: WARN
+  
