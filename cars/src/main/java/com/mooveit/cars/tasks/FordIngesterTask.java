@@ -31,7 +31,6 @@ public class FordIngesterTask {
 
 	@Scheduled(cron = "${cars.ford.ingester.runCron}")
 	public void ingestFile() throws IOException {
-		//log.warn("Not implemented yet.");
 		System.out.println("*********Ingesting File****************");
 		Resource resource=resourceLoader.getResource("classpath:ford-example.xml");
 		File xmlFile = resource.getFile();
@@ -45,7 +44,6 @@ public class FordIngesterTask {
 			Catalogue catalogue = (Catalogue) jaxbUnmarshaller.unmarshal(xmlFile);
 			System.out.println("***Printing Catalogue models count******" + catalogue.getModelsList().size());
 			System.out.println(catalogue.getModelsList().get(0).toString());
-			//  userRepository.save(catalogue.getModelsList().get(0));
 			carRepository.saveAll(catalogue.getModelsList());
 			System.out.println("**********Print inserted data*********" + carRepository.findAll());
 		}
