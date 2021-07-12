@@ -31,6 +31,22 @@ Model.
 
 ## B - Ingest the data
 
+#### 1. To read XML file from ingester I used the XStream library which I find very useful and easy to use to read
+serialize XML strings to POJOs. I also created DTOs (Data Transfer Objects) to match every entity. The reason 
+for introducing DTO is simple. We don't want to expose entities to our RestController, instead 
+our RestController will only know about DTOs.
+#### 2. List of DTOs:
+CarBrandDto, CalalogueDto, ModelDto, SubModelDto, EngineDto and WheelsDto
+Repositories were implemented to persist all entities. 
+#### 3. The list of repositories are:
+CarBrandRepository, CalalogueRepository, ModelRepository, EngineRepository, WheelsRepository
+and SubModelRepository
+
+#### 4. Two helper classed ConverterHelper and XStreamHelper were implemented. ConverterHelper to help with converting between entities and DTOs XStreamHelper to help with reading and writing XML.
+
+
+
+
 ## C - Expose data with a RESTful API
 
 ## D - Adding images

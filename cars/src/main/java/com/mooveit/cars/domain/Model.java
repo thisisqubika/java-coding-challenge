@@ -36,13 +36,10 @@ public class Model implements Serializable {
 	private String type;
 	@Column(name = "line")
 	private String line;
-	@NotNull
 	@OneToOne(targetEntity = Engine.class, cascade = CascadeType.ALL)
 	private Engine engine;
-	@NotNull
 	@OneToOne(targetEntity = Wheels.class, cascade = CascadeType.ALL)
 	private Wheels wheels;
-	@NotNull
 	@ManyToOne
 	@JoinColumn(name = "sub_models_id", nullable = false)
 	private SubModels subModels;

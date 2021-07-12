@@ -1,7 +1,7 @@
 cars:
   ford:
     ingester:
-      runCron: '0/30 * * * * ?' #each minute 0 * * ? * *
+      runCron: '0/15 * * * * ?' #triggered every 15 secs
 
 spring:
   datasource:

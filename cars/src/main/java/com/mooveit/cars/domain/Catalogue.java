@@ -41,6 +41,10 @@ public class Catalogue implements Serializable {
 		}
 	}
 
+	public void addModel(Model model) {
+		this.models.add(model);
+	}
+
 	@Override
 	public String toString() {
 		return "Catalogue{" + "models=" + models + '}';
