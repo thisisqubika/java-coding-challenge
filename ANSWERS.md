@@ -83,3 +83,15 @@ return new ResponseEntity<>(carBrandService.saveModelImage(modelDto), HttpStatus
 #### 5.  If a user request an endpoint from part C then I would get send the model JSON response and REDIRECT to a download image endpoint to send the image file to the clients machine. 
 
 ## E - Improvements
+
+#### 1. Creating the CarBrand entity is an improvement because it allow us to store catalogues for any vendor as well as allow us to query by brand.
+
+#### 2. Converting the ingester task to consume JSON instead of XML would improve performance for large files. It would also mean the file size would be smaller for JSON vs XML and that would matter if we intend to also store the files we get from vendors in a document store such as AWS S3.
+
+#### 3. Engine and Wheels entities could be embedded into the Model entity using @Embedded and this would simplify the amount of code we have to write.
+
+#### 4. CarBrand entity can be elimminate as well if we add a brandName filed or attribute on the Catalogue entity. This would simplify the code.
+
+#### 5. Writing unit and integration test for the IngesterTask and the CarBrandService and making sure they scale under load would improve the service.
+
+#### 6. Running the code through Sonar and CheckStyle would help eliminate code smells before the code gets to QA/Prod etc
