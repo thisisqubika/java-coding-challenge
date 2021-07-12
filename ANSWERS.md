@@ -57,4 +57,29 @@ the 2 endpoints.
 
 ## D - Adding images
 
+#### 1 To add images for any model I would expose an upload REST controller to consume a modeId and a MultiPart file. A service carBrandService could then find the model based on a modelId and process 
+the Multipart files and store the contents in byte format on the model entity so the image can be stored in a database or preferable
+in a document store such as AWS S3.
+
+#### 2. Add LOB to Model entity class:
+
+@Lob
+@Column(name="model_image")
+private byte[] modelImage;
+
+#### 3. Create an REST ImageController
+
+@GetMapping(value = "cars/upload/model/{id}" , consumes="Multipart/formdata")
+public String uploadModelImage(@PathVariable Long modelId,  @RequestParam("image") MultipartFile multipartFile) throws IOException {
+String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
+ModelDto modelDto = carBrandService.getModel(modelId);
+modelDto.setFileName(fileName);
+modelDto.setModelImage(multipartFile);
+return new ResponseEntity<>(carBrandService.saveModelImage(modelDto), HttpStatus.OK);
+}
+
+#### 4.  CarBrandService would process multipart file and extract contents as bytes and persist using ModelRepository
+
+#### 5.  If a user request an endpoint from part C then I would get send the model JSON response and REDIRECT to a download image endpoint to send the image file to the clients machine. 
+
 ## E - Improvements
