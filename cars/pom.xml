@@ -26,6 +26,7 @@
         <hibernate.el.version>3.0.0</hibernate.el.version>
         <hibernate.jpa.api.version>1.0.0.Final</hibernate.jpa.api.version>
         <javax.persistence.version>1.0.2</javax.persistence.version>
+        <jackson.version>2.9.9</jackson.version>
     </properties>
 
     <dependencies>
@@ -95,6 +96,26 @@
             <groupId>com.thoughtworks.xstream</groupId>
             <artifactId>xstream</artifactId>
             <version>${xstream.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-hibernate5</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-jdk8</artifactId>
+            <version>${jackson.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>

@@ -80,6 +80,23 @@ public final class ConverterHelper {
 		return dto;
 	}
 
+	public static ModelDto toSubModelsModelDto(Model model) {
+		ModelDto dto = new ModelDto();
+		dto.setId(model.getId());
+		dto.setFrom(model.getFrom());
+		dto.setTo(model.getTo());
+		dto.setName(model.getName());
+		dto.setLine(model.getLine());
+		dto.setType(model.getType());
+		if(Objects.nonNull(model.getEngine())) {
+			dto.setEngineDto(ConverterHelper.toEngineDto(model.getEngine()));
+		}
+		if(Objects.nonNull(model.getWheels())) {
+			dto.setWheelsDto(ConverterHelper.toWheelsDto(model.getWheels()));
+		}
+		return dto;
+	}
+
 	public static Model fromModelDto(ModelDto dto) {
 		Model model = new Model();
 		model.setId(dto.getId());
@@ -130,7 +147,7 @@ public final class ConverterHelper {
 	public static SubModelsDto toSubModelsDto(SubModels subModels) {
 		List<ModelDto> modelDtos = new ArrayList<>();
 		if(CollectionUtils.isNotEmpty(subModels.getModels())) {
-			modelDtos = subModels.getModels().stream().map(ConverterHelper::toModelDto).collect(Collectors.toList());
+			modelDtos = subModels.getModels().stream().map(ConverterHelper::toSubModelsModelDto).collect(Collectors.toList());
 		}
 		SubModelsDto dto = new SubModelsDto(modelDtos);
 		dto.setId(subModels.getId());

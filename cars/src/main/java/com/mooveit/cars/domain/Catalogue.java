@@ -27,7 +27,7 @@ public class Catalogue implements Serializable {
 	private Long id;
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
-	@JoinColumn(name = "catalogue_id", referencedColumnName = "id")
+	@JoinColumn(name = "fr_catalogue_id", referencedColumnName = "id")
 	private List<Model> models = new ArrayList<>();
 
 	public Catalogue() {

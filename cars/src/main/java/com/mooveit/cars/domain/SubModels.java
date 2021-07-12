@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -23,8 +24,8 @@ public class SubModels implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
-	@OneToMany(mappedBy = "subModels")
-	private List<Model> models = new ArrayList<>();;
+	@OneToMany(mappedBy = "subModels", cascade = CascadeType.ALL)
+	private List<Model> models = new ArrayList<>();
 
 	public SubModels() {
 	}

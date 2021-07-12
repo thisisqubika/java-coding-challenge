@@ -12,7 +12,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 
 import lombok.Data;
 
@@ -24,24 +23,24 @@ public class Model implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	@NotNull
 	@Column(name = "name")
 	private String name;
 	@Column(name = "from_year")
 	private String from;
 	@Column(name = "to_year")
 	private String to;
-	@NotNull
 	@Column(name = "type")
 	private String type;
 	@Column(name = "line")
 	private String line;
-	@OneToOne(targetEntity = Engine.class, cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "fk_engine_id")
 	private Engine engine;
-	@OneToOne(targetEntity = Wheels.class, cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "fk_wheels_id")
 	private Wheels wheels;
 	@ManyToOne
-	@JoinColumn(name = "sub_models_id", nullable = false)
+	@JoinColumn(name = "fr_sub_models_id")
 	private SubModels subModels;
 
 	public Model() {
