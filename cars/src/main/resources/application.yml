@@ -1,7 +1,7 @@
 cars:
   ford:
     ingester:
-      runCron: '0 * * ? * *' #each minute
+      runCron: '0 * * ? * *' 
 
 spring:
   datasource:
@@ -11,4 +11,7 @@ spring:
     password:
   jpa:
     database-platform: 'org.hibernate.dialect.H2Dialect'
+    show-sql: true
+    hibernate:
+      ddl-auto: create-drop
   h2.console.enabled: true
